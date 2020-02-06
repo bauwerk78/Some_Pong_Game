@@ -1,6 +1,7 @@
 package bauwerk78.model;
 
 import bauwerk78.tools.Randomize;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -20,8 +21,7 @@ public class Ball extends GameObject implements Randomize {
     }
 
     private void init() {
-        setSpeedX(90);
-        setSpeedY(90);
+        setSpeedX(150);
         setWidth(15);
         setHeight(15);
         goingUp = Randomize.randBoolean();
@@ -50,9 +50,9 @@ public class Ball extends GameObject implements Randomize {
         }
 
         if(goingUp) {
-            setPosY(getPosY() - getSpeedY() * elapsedTime);
+            setPosY(getPosY() - getSpeedX() * elapsedTime);
         } else {
-            setPosY(getPosY() + getSpeedY() * elapsedTime);
+            setPosY(getPosY() + getSpeedX() * elapsedTime);
         }
 
 
@@ -67,7 +67,27 @@ public class Ball extends GameObject implements Randomize {
 
     }
 
+    public Rectangle2D collidingBox() {
+        return new Rectangle2D(getPosX(), getPosY(), getWidth(), getHeight());
+    }
+
     public boolean isBallOutOfBounds() {
         return ballOutOfBounds;
+    }
+
+    public boolean isGoingUp() {
+        return goingUp;
+    }
+
+    public void setGoingUp(boolean goingUp) {
+        this.goingUp = goingUp;
+    }
+
+    public boolean isGoingRight() {
+        return goingRight;
+    }
+
+    public void setGoingRight(boolean goingRight) {
+        this.goingRight = goingRight;
     }
 }
