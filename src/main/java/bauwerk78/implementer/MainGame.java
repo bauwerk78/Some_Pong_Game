@@ -30,6 +30,9 @@ public class MainGame extends Application {
     public static Long startNanoTime = System.nanoTime();
     public static double elapsedTime;
 
+    private int scoreP1;
+    private int scoreP2;
+
 
 
     public MainGame() {
@@ -64,6 +67,7 @@ public class MainGame extends Application {
 
     public void mainLoop() {
         render();
+
     }
 
     public void initGraphics() {

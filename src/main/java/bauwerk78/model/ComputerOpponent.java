@@ -36,8 +36,5 @@ public class ComputerOpponent extends Paddle {
             }
         }
 
-        System.out.println(getPosX() + " " + getPosY());
-        System.out.println(getWidth() + " " + getHeight());
-
     }
 }
