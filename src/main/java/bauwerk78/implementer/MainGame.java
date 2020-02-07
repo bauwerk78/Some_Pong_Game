@@ -4,6 +4,7 @@ package bauwerk78.implementer;
 import bauwerk78.model.Ball;
 import bauwerk78.model.ComputerOpponent;
 import bauwerk78.model.Player;
+import bauwerk78.tools.Delayer;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -15,24 +16,26 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
-
 public class MainGame extends Application {
 
-    Group root = new Group();
-    Scene scene = new Scene(root, windowWidth, windowHeight);
-    private GraphicsContext gc;
-    private Canvas canvas;
-    private Ball ball;
-    private Player player1;
-    private ComputerOpponent computerOpponent;
     public static final int windowWidth = 800;
     public static final int windowHeight = 600;
     public static Long startNanoTime = System.nanoTime();
     public static double elapsedTime;
 
+    private Group root = new Group();
+    private Scene scene = new Scene(root, windowWidth, windowHeight);
+    private Delayer delayer = new Delayer();
+    private GraphicsContext gc;
+    private Canvas canvas;
+    private Ball ball;
+    private Player player1;
+    private ComputerOpponent computerOpponent;
+
+    private boolean checkCollision = true;
+    private boolean collidedTimer;
     private int scoreP1;
     private int scoreP2;
-
 
 
     public MainGame() {
@@ -49,15 +52,26 @@ public class MainGame extends Application {
     }
 
     public void update() {
-        if(collisionDetection(ball.collidingBox(), player1.collidingBox()) || collisionDetection(ball.collidingBox(), computerOpponent.collidingBox())) {
-            ball.setGoingRight(!ball.isGoingRight());
+
+
+        if (checkCollision) {
+            if (collisionDetection(ball.collidingBox(), player1.collidingBox()) || collisionDetection(ball.collidingBox(), computerOpponent.collidingBox())) {
+                ball.setGoingRight(!ball.isGoingRight());
+                checkCollision = false;
+            }
         }
+        //Make sure the intersects detection does not happen several times in a row as in ball gets stuck.
+        if(!checkCollision) {
+            checkCollision = delayer.delayTimer(0.5);
+        }
+
+
     }
 
     public void render() {
         update();
         gc.setFill(Color.BLACK);
-        gc.fillRect(0,0,windowWidth, windowHeight);
+        gc.fillRect(0, 0, windowWidth, windowHeight);
         ball.render(gc);
         player1.update(scene);
         player1.render(gc);
@@ -104,7 +118,7 @@ public class MainGame extends Application {
 
     public static boolean collisionDetection(Rectangle2D object1, Rectangle2D object2) {
         return object1.intersects(object2);
-     }
+    }
 
     public double getBallYPosition() {
         return ball.getPosY();
@@ -121,7 +135,6 @@ public class MainGame extends Application {
     public double getBallHeight() {
         return ball.getHeight();
     }
-
 
 
 }//End of class.

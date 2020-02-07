@@ -29,6 +29,11 @@ public class Ball extends GameObject implements Randomize {
         //System.out.println(goingRight);
     }
 
+    public void reset() {
+        setPosX(windowWidth / 2d);
+        setPosY(windowHeight / 2d);
+    }
+
     private void update() {
         if(getPosX() <= 0 || getPosX() + getWidth() >= windowWidth) {
             ballOutOfBounds = true;
