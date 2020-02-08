@@ -34,7 +34,8 @@ public class MainGame extends Application {
     private Ball ball;
     private Player player1;
     private ComputerOpponent computerOpponent;
-    private Font scoreFont = Font.font("Verdana", FontWeight.BOLD, 15);
+    private int fontSize = 20;
+    private Font scoreFont = Font.font("Verdana", FontWeight.BOLD, fontSize);
 
     private boolean checkCollision = true;
     private boolean resetTimer = true;
@@ -54,7 +55,9 @@ public class MainGame extends Application {
         initGraphics();
         ball = new Ball(windowWidth / 2d, windowHeight / 2d);
         player1 = new Player(20, (windowHeight / 2d));
+        player1.setPosY(player1.getPosY() - player1.getHeight() / 2);
         computerOpponent = new ComputerOpponent(windowWidth - 20, (windowHeight / 2d));
+        computerOpponent.setPosY(computerOpponent.getPosY() - computerOpponent.getHeight() / 2);
         computerOpponent.setPosX(computerOpponent.getPosX() - computerOpponent.getWidth());
 
     }
@@ -62,10 +65,10 @@ public class MainGame extends Application {
     public void showScore() {
         gc.setFont(scoreFont);
         gc.setFill(Color.WHITE);
-        scoreP1Text = "P1 " + scoreP1;
-        scoreP2Text = "P2 " + scoreP2;
+        scoreP1Text = "P1: " + scoreP1;
+        scoreP2Text = "P2: " + scoreP2;
         gc.fillText(scoreP1Text, windowWidth/2d - (windowWidth / 4d), 30);
-        gc.fillText(scoreP2Text, windowWidth/2d + (windowWidth / 4d), 30);
+        gc.fillText(scoreP2Text, windowWidth/2d + (windowWidth / 4d) - (fontSize * scoreP2Text.length()) / 2d, 30);
 
     }
 
