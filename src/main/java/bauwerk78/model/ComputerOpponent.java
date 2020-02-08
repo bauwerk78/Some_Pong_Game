@@ -14,7 +14,7 @@ public class ComputerOpponent extends Paddle {
     }
 
     public void init() {
-        setSpeedY(100);
+        setSpeedY(150);
     }
 
     public void update(MainGame mg) {

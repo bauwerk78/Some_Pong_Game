@@ -32,6 +32,10 @@ public class Ball extends GameObject implements Randomize {
     public void reset() {
         setPosX(windowWidth / 2d);
         setPosY(windowHeight / 2d);
+        goingUp = Randomize.randBoolean();
+        goingRight = Randomize.randBoolean();
+        ballOutOfBounds = false;
+        setSpeedX(150);
     }
 
     private void update() {
@@ -78,6 +82,10 @@ public class Ball extends GameObject implements Randomize {
 
     public boolean isBallOutOfBounds() {
         return ballOutOfBounds;
+    }
+
+    public void setBallOutOfBounds(boolean ballOutOfBounds) {
+        this.ballOutOfBounds = ballOutOfBounds;
     }
 
     public boolean isGoingUp() {
