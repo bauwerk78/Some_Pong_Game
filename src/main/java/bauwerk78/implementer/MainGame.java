@@ -73,10 +73,8 @@ public class MainGame extends Application {
     }
 
     public void update() {
-
-
         if (checkCollision) {
-            if (collisionDetection(ball.collidingBox(), player1.collidingBox()) || collisionDetection(ball.collidingBox(), computerOpponent.collidingBox())) {
+            if (collisionDetection(ball.collidingBox(), player1.collidingBoxLeftPaddle()) || collisionDetection(ball.collidingBox(), computerOpponent.collidingBoxRightPaddle())) {
                 ball.setGoingRight(!ball.isGoingRight());
                 ball.setSpeedX(ball.getSpeedX() * speedMultiplier);
                 checkCollision = false;

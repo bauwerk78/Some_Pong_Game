@@ -25,7 +25,11 @@ public class Paddle extends GameObject {
 
     }
 
-    public Rectangle2D collidingBox() {
+    public Rectangle2D collidingBoxLeftPaddle() {
+        return new Rectangle2D(getPosX(), getPosY(), getWidth(), getHeight());
+    }
+
+    public Rectangle2D collidingBoxRightPaddle() {
         return new Rectangle2D(getPosX(), getPosY(), getWidth(), getHeight());
     }
 }
