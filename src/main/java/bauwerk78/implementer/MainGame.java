@@ -41,8 +41,6 @@ public class MainGame extends Application {
     private boolean resetTimer = true;
     private int scoreP1;
     private int scoreP2;
-    private String scoreP1Text;
-    private String scoreP2Text;
     private double speedMultiplier = 1.05;
 
 
@@ -57,16 +55,13 @@ public class MainGame extends Application {
         player1 = new Player(20, (windowHeight / 2d));
         player1.setPosY(player1.getPosY() - player1.getHeight() / 2);
         computerOpponent = new ComputerOpponent(windowWidth - 20, (windowHeight / 2d));
-        computerOpponent.setPosY(computerOpponent.getPosY() - computerOpponent.getHeight() / 2);
-        computerOpponent.setPosX(computerOpponent.getPosX() - computerOpponent.getWidth());
-
     }
 
     public void showScore() {
         gc.setFont(scoreFont);
         gc.setFill(Color.WHITE);
-        scoreP1Text = "P1: " + scoreP1;
-        scoreP2Text = "P2: " + scoreP2;
+        String scoreP1Text = "P1: " + scoreP1;
+        String scoreP2Text = "P2: " + scoreP2;
         gc.fillText(scoreP1Text, windowWidth/2d - (windowWidth / 4d), 30);
         gc.fillText(scoreP2Text, windowWidth/2d + (windowWidth / 4d) - (fontSize * scoreP2Text.length()) / 2d, 30);
 
@@ -111,7 +106,9 @@ public class MainGame extends Application {
         if(!ball.isBallOutOfBounds()) {
             ball.render(gc);
         }
-
+        gc.strokeLine(windowWidth / 2d, 0, windowWidth / 2d, windowHeight);
+        gc.setStroke(Color.WHITE);
+        gc.stroke();
         player1.update(scene);
         player1.render(gc);
         computerOpponent.update(this);

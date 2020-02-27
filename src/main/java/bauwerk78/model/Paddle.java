@@ -22,6 +22,7 @@ public class Paddle extends GameObject {
     public void render(GraphicsContext gc) {
         gc.setFill(Color.WHITE);
         gc.fillRect(getPosX(), getPosY(), getWidth(), getHeight());
+        gc.setFill(Color.RED);
 
     }
 
