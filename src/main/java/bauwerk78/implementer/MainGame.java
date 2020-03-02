@@ -3,12 +3,14 @@ package bauwerk78.implementer;
 
 import bauwerk78.model.Ball;
 import bauwerk78.model.ComputerOpponent;
+import bauwerk78.model.GameMenu;
 import bauwerk78.model.Player;
 import bauwerk78.tools.Delayer;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -25,6 +27,7 @@ public class MainGame extends Application {
     public static Long startNanoTime = System.nanoTime();
     public static double elapsedTime;
 
+    private Stage stage;
     private Group root = new Group();
     private Scene scene = new Scene(root, windowWidth, windowHeight);
     private Delayer collisionDelayer = new Delayer();
@@ -36,9 +39,11 @@ public class MainGame extends Application {
     private ComputerOpponent computerOpponent;
     private int fontSize = 20;
     private Font scoreFont = Font.font("Verdana", FontWeight.BOLD, fontSize);
+    private GameMenu gameMenu = new GameMenu();
 
     private boolean checkCollision = true;
     private boolean resetTimer = true;
+    private boolean inMenu = false;
     private int scoreP1;
     private int scoreP2;
     private double speedMultiplier = 1.05;
@@ -95,8 +100,6 @@ public class MainGame extends Application {
                 ball.reset();
             }
         }
-
-
     }
 
     public void render() {
@@ -117,14 +120,22 @@ public class MainGame extends Application {
     }
 
     public void mainLoop() {
-        render();
+        if(!inMenu) {
+            render();
+        }
+        if(inMenu) {
+            gameMenu.updateMenu(scene, gc);
+        }
 
     }
 
     public void initGraphics() {
         canvas = new Canvas(windowWidth, windowHeight);
-        root.getChildren().add(canvas);
+
+
         gc = canvas.getGraphicsContext2D();
+        root.getChildren().addAll(canvas);
+        //scene.setRoot(gameMenu.getMenuGroup());
     }
 
     public static void nanoTimer(long currentNanoTime) {
@@ -134,12 +145,12 @@ public class MainGame extends Application {
 
     @Override
     public void start(Stage stage) {
+        this.stage = stage;
+        this.stage.setTitle("Some Pong Game");
 
-        stage.setTitle("Some Pong Game");
-
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.sizeToScene();
+        this.stage.setScene(scene);
+        this.stage.setResizable(false);
+        this.stage.sizeToScene();
 
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
