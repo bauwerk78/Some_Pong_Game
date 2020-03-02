@@ -8,10 +8,8 @@ import java.util.List;
 
 public class Player extends Paddle {
 
-    private UserInput userInput = new UserInput();
-    private List<String> playerInput = new ArrayList<>();
     private int edgePadding = 5;
-    private int player = 1;
+    private int player;
     private String controllerUp;
     private String controllerDown;
 
@@ -33,11 +31,8 @@ public class Player extends Paddle {
 
 
     public void update(Scene scene) {
-        userInput.getPlayerInput(scene);
 
-        playerInput = userInput.getInputList();
-        System.out.println(playerInput);
-        if(playerInput.contains(controllerUp)) {
+        if(UserInput.input.contains(controllerUp)) {
             setPosY(getPosY() - getSpeedY() * MainGame.elapsedTime);
             if(getPosY() <= edgePadding) {
                 setPosY(edgePadding);
@@ -45,7 +40,7 @@ public class Player extends Paddle {
 
         }
 
-        if(playerInput.contains(controllerDown)) {
+        if(UserInput.input.contains(controllerDown)) {
             setPosY(getPosY() + getSpeedY() * MainGame.elapsedTime);
             if(getPosY() + getHeight() >= MainGame.windowHeight - edgePadding) {
                 setPosY(MainGame.windowHeight - getHeight() - edgePadding);

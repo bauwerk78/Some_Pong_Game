@@ -1,10 +1,7 @@
 package bauwerk78.implementer;
 
 
-import bauwerk78.model.Ball;
-import bauwerk78.model.ComputerOpponent;
-import bauwerk78.model.GameMenu;
-import bauwerk78.model.Player;
+import bauwerk78.model.*;
 import bauwerk78.tools.Delayer;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -38,6 +35,7 @@ public class MainGame extends Application {
     private Ball ball;
     private Player player1;
     private Player player2;
+    private UserInput userInput = new UserInput();
     private ComputerOpponent computerOpponent;
     private int fontSize = 20;
     private Font scoreFont = Font.font("Verdana", FontWeight.BOLD, fontSize);
@@ -60,9 +58,9 @@ public class MainGame extends Application {
         ball = new Ball(windowWidth / 2d, windowHeight / 2d);
         player1 = new Player(20, (windowHeight / 2d), 1);
         player1.setPosY(player1.getPosY() - player1.getHeight() / 2);
-        player2 = (Player) new Player(windowWidth - 20, (windowHeight / 2d), 2);
+        player2 = new Player(windowWidth - 20, (windowHeight / 2d), 2);
         player2.setPosY(player2.getPosY() - player2.getHeight() / 2);
-        player2.setPosX(windowWidth - 20);
+        //player2.setPosX(windowWidth - 20);
         computerOpponent = new ComputerOpponent(windowWidth - 20, (windowHeight / 2d));
         computerOpponent.setPosY(computerOpponent.getPosY() - computerOpponent.getHeight() / 2);
     }
@@ -78,6 +76,8 @@ public class MainGame extends Application {
     }
 
     public void update() {
+        userInput.getPlayerInput(gameScene);
+
         if (checkCollision) {
             if (collisionDetection(ball.collidingBox(), player1.collidingBoxLeftPaddle()) || collisionDetection(ball.collidingBox(), computerOpponent.collidingBoxRightPaddle())
                     || collisionDetection(ball.collidingBox(), player2.collidingBoxRightPaddle())) {

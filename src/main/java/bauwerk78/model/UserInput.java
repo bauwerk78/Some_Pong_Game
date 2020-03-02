@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserInput {
 
-    List<String> input = new ArrayList<>();
+    public static List<String> input = new ArrayList<>();
 
     public void getPlayerInput(Scene scene) {
         scene.setOnKeyPressed(
