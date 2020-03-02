@@ -1,0 +1,2 @@
+https://stackoverflow.com/questions/39007382/moving-two-rectangles-with-keyboard-in-javafx
+

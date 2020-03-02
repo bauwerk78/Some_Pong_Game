@@ -7,10 +7,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import sun.applet.Main;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,9 @@ public class GameMenu {
     private Glow glowEffect = new Glow();
 
     private int selectedItem = 0;
+    private int numberOfPlayers = 1;
+
+    private boolean startGame;
 
 
     public GameMenu() {
@@ -54,7 +59,7 @@ public class GameMenu {
         menuImageView.setVisible(true);
         menuImageView.setFitWidth(menuImage.getWidth());
         menuImageView.setFitHeight(menuImage.getHeight());
-        menuImageView.relocate(200, 200);
+        //menuImageView.relocate(200, 200);
 
         imageViews[0] = new ImageView(option1);
         imageViews[1] = new ImageView(option2);
@@ -63,20 +68,18 @@ public class GameMenu {
         verticalBox = new VBox(menuImageView, imageViews[0], imageViews[1], imageViews[2]);
         //verticalBox = new VBox(menuImageView);
         verticalBox.setPrefSize(150, 125);
-        verticalBox.relocate(325, 225);
+        verticalBox.relocate(325, 125);
         verticalBox.setVisible(true);
+        //verticalBox.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
         System.out.println(verticalBox.getParent() + verticalBox.getChildren().toString());
         glowEffect.setLevel(1);
         menuScene = new Scene(verticalBox, MainGame.windowWidth, MainGame.windowHeight);
-
+        menuScene.setFill(Color.BLACK);
     }
 
-    public void updateMenu(Scene scene, GraphicsContext gc) {
-/*        userInput.getPlayerInput(scene);
+    public void updateMenu(GraphicsContext gc) {
+        userInput.getPlayerInput(menuScene);
         menuInput = userInput.getInputList();
-        gc.setFill(Color.BLACK);
-        gc.fillRect(0, 0, MainGame.windowWidth, MainGame.windowHeight);*/
-
 
         if (menuInput.contains("UP")) {
             selectedItem--;
@@ -94,6 +97,7 @@ public class GameMenu {
             }
         }
 
+        //Remove glow effect and add to the proper location.
         for (int i = 0; i < 3; i++) {
             if (i != selectedItem) {
                 imageViews[i].setEffect(null);
@@ -104,17 +108,23 @@ public class GameMenu {
             }
         }
 
-        System.out.println(selectedItem);
+        if(menuInput.contains("ENTER")) {
+            if(selectedItem == 0) {
+                numberOfPlayers = 1;
+                menuInput.remove("ENTER");
+                startGame = true;
+            }
 
-/*        if(selectedItem == 0 && imageView1.getEffect() == null) {
-            imageView1.setEffect(glowEffect);
+            if(selectedItem == 1) {
+                numberOfPlayers = 2;
+                menuInput.remove("ENTER");
+                startGame = true;
+            }
+
+            if(selectedItem == 2) {
+                System.exit(0);
+            }
         }
-        if(selectedItem == 1 && imageView2.getEffect() == null) {
-            imageView2.setEffect(glowEffect);
-        }
-        if(selectedItem == 2 && imageView3.getEffect() == null) {
-            imageView3.setEffect(glowEffect);
-        }*/
 
 
     }
@@ -122,7 +132,20 @@ public class GameMenu {
     public VBox getVerticalBox() {
         return verticalBox;
     }
-/*
+
+    public Scene getMenuScene() {
+        return menuScene;
+    }
+
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+
+    public boolean isStartGame() {
+        return startGame;
+    }
+
+    /*
     public Pane getPane() {
         return pane;
     }*/
