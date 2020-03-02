@@ -43,7 +43,6 @@ public class MainGame extends Application {
 
     private boolean checkCollision = true;
     private boolean resetTimer = true;
-    private boolean inMenu = true;
     private int scoreP1;
     private int scoreP2;
     private double speedMultiplier = 1.05;
@@ -60,7 +59,6 @@ public class MainGame extends Application {
         player1.setPosY(player1.getPosY() - player1.getHeight() / 2);
         player2 = new Player(windowWidth - 20, (windowHeight / 2d), 2);
         player2.setPosY(player2.getPosY() - player2.getHeight() / 2);
-        //player2.setPosX(windowWidth - 20);
         computerOpponent = new ComputerOpponent(windowWidth - 20, (windowHeight / 2d));
         computerOpponent.setPosY(computerOpponent.getPosY() - computerOpponent.getHeight() / 2);
     }
@@ -79,8 +77,8 @@ public class MainGame extends Application {
         userInput.getPlayerInput(gameScene);
 
         if (checkCollision) {
-            if (collisionDetection(ball.collidingBox(), player1.collidingBoxLeftPaddle()) || collisionDetection(ball.collidingBox(), computerOpponent.collidingBoxRightPaddle())
-                    || collisionDetection(ball.collidingBox(), player2.collidingBoxRightPaddle())) {
+            if (collisionDetection(ball.collidingBox(), player1.collidingBox()) || collisionDetection(ball.collidingBox(), computerOpponent.collidingBox())
+                    || collisionDetection(ball.collidingBox(), player2.collidingBox())) {
 
                 ball.setGoingRight(!ball.isGoingRight());
                 ball.setSpeedX(ball.getSpeedX() * speedMultiplier);
@@ -153,11 +151,8 @@ public class MainGame extends Application {
 
     public void initGraphics() {
         canvas = new Canvas(windowWidth, windowHeight);
-
-
         gc = canvas.getGraphicsContext2D();
         rootGroup.getChildren().addAll(canvas);
-        //scene.setRoot(gameMenu.getMenuGroup());
     }
 
     public static void nanoTimer(long currentNanoTime) {

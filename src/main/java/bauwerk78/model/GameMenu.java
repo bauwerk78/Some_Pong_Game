@@ -4,6 +4,7 @@ import bauwerk78.implementer.MainGame;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.Bloom;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,12 +32,18 @@ public class GameMenu {
 
     private VBox verticalBox;
     private Scene menuScene;
-    //private Pane pane;
 
     private UserInput userInput = new UserInput();
     private List<String> menuInput = new ArrayList<>();
 
     private Glow glowEffect = new Glow();
+    private Bloom bloomEffect = new Bloom();
+    private double bloomThreshold;
+    private boolean bloomThresholdGoingUp = true;
+
+    private Glow glowEffectMenu = new Glow();
+    private double glowLevel;
+    private boolean glowLevelGoingUp = true;
 
     private int selectedItem = 0;
     private int numberOfPlayers = 1;
@@ -59,27 +66,65 @@ public class GameMenu {
         menuImageView.setVisible(true);
         menuImageView.setFitWidth(menuImage.getWidth());
         menuImageView.setFitHeight(menuImage.getHeight());
-        //menuImageView.relocate(200, 200);
 
         imageViews[0] = new ImageView(option1);
         imageViews[1] = new ImageView(option2);
         imageViews[2] = new ImageView(option3);
 
         verticalBox = new VBox(menuImageView, imageViews[0], imageViews[1], imageViews[2]);
-        //verticalBox = new VBox(menuImageView);
         verticalBox.setPrefSize(150, 125);
         verticalBox.relocate(325, 125);
         verticalBox.setVisible(true);
-        //verticalBox.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
-        System.out.println(verticalBox.getParent() + verticalBox.getChildren().toString());
+
         glowEffect.setLevel(1);
+        bloomEffect.setThreshold(bloomThreshold);
+        menuImageView.setEffect(glowEffectMenu);
         menuScene = new Scene(verticalBox, MainGame.windowWidth, MainGame.windowHeight);
         menuScene.setFill(Color.BLACK);
+    }
+
+    public void pulsingBloomMenu() {
+        if(bloomThresholdGoingUp) {
+            bloomThreshold += 0.01;
+            if(bloomThreshold >= 1) {
+                bloomThreshold = 1;
+                bloomThresholdGoingUp = false;
+            }
+        } else {
+            bloomThreshold -= 0.01;
+            if(bloomThreshold <= 0) {
+                bloomThreshold = 0;
+                bloomThresholdGoingUp = true;
+            }
+        }
+        System.out.println(bloomThreshold);
+    }
+
+    public void pulsingGlowMenu() {
+        if(glowLevelGoingUp) {
+            glowLevel += 0.01;
+            if(glowLevel >= 1) {
+                glowLevel = 1;
+                glowLevelGoingUp = false;
+            }
+        } else {
+            glowLevel -= 0.01;
+            if(glowLevel <= 0) {
+                glowLevel = 0;
+                glowLevelGoingUp = true;
+            }
+        }
+        //System.out.println(glowLevel);
     }
 
     public void updateMenu(GraphicsContext gc) {
         userInput.getPlayerInput(menuScene);
         menuInput = userInput.getInputList();
+
+/*        pulsingBloomMenu();
+        bloomEffect.setThreshold(bloomThreshold);*/
+        pulsingGlowMenu();
+        glowEffectMenu.setLevel(glowLevel);
 
         if (menuInput.contains("UP")) {
             selectedItem--;
@@ -97,7 +142,7 @@ public class GameMenu {
             }
         }
 
-        //Remove glow effect and add to the proper location.
+        //Remove glow effect and add to the correct selection.
         for (int i = 0; i < 3; i++) {
             if (i != selectedItem) {
                 imageViews[i].setEffect(null);
@@ -128,6 +173,8 @@ public class GameMenu {
 
 
     }
+
+
 
     public VBox getVerticalBox() {
         return verticalBox;
