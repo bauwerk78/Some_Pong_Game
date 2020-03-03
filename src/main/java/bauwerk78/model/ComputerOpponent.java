@@ -4,7 +4,6 @@ import bauwerk78.implementer.MainGame;
 
 public class ComputerOpponent extends Paddle {
 
-    private int directionY;
     private int edgePadding = 5;
     private boolean goingUp;
 

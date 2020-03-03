@@ -1,26 +1,18 @@
 package bauwerk78.model;
 
 import bauwerk78.implementer.MainGame;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameMenu {
-
-    //private Group menuGroup = new Group();
 
     private Image menuImage;
     private Image option1;
@@ -117,7 +109,7 @@ public class GameMenu {
         //System.out.println(glowLevel);
     }
 
-    public void updateMenu(GraphicsContext gc) {
+    public void updateMenu() {
         userInput.getPlayerInput(menuScene);
         menuInput = userInput.getInputList();
 
@@ -175,11 +167,6 @@ public class GameMenu {
     }
 
 
-
-    public VBox getVerticalBox() {
-        return verticalBox;
-    }
-
     public Scene getMenuScene() {
         return menuScene;
     }
@@ -192,13 +179,5 @@ public class GameMenu {
         return startGame;
     }
 
-    /*
-    public Pane getPane() {
-        return pane;
-    }*/
-
-    public ImageView getMenuImageView() {
-        return menuImageView;
-    }
 
 }

@@ -25,8 +25,6 @@ public class MainGame extends Application {
     public static Stage stage;
     public static Group rootGroup = new Group();
 
-    //private Stage stage;
-    //private Group rootGroup = new Group();
     private Scene gameScene = new Scene(rootGroup, windowWidth, windowHeight);
     private Delayer collisionDelayer = new Delayer();
     private Delayer resetDelayer = new Delayer();
@@ -63,6 +61,7 @@ public class MainGame extends Application {
         computerOpponent = new ComputerOpponent(windowWidth - 20, (windowHeight / 2d));
         computerOpponent.setPosX(computerOpponent.getPosX() - computerOpponent.getWidth());
         computerOpponent.setPosY(computerOpponent.getPosY() - computerOpponent.getHeight() / 2);
+
     }
 
     public void showScore() {
@@ -119,13 +118,13 @@ public class MainGame extends Application {
         gc.strokeLine(windowWidth / 2d, 0, windowWidth / 2d, windowHeight);
         gc.setStroke(Color.WHITE);
         gc.stroke();
-        player1.update(gameScene);
+        player1.update();
         player1.render(gc);
         if(gameMenu.getNumberOfPlayers() == 1) {
             computerOpponent.update(this);
             computerOpponent.render(gc);
         } else {
-            player2.update(gameScene);
+            player2.update();
             player2.render(gc);
         }
 
@@ -146,7 +145,7 @@ public class MainGame extends Application {
             if (!stage.getScene().equals(gameMenu.getMenuScene())) {
                 stage.setScene(gameMenu.getMenuScene());
             }
-            gameMenu.updateMenu(gc);
+            gameMenu.updateMenu();
         }
 
     }

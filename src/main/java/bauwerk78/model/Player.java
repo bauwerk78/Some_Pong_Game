@@ -1,10 +1,6 @@
 package bauwerk78.model;
 
 import bauwerk78.implementer.MainGame;
-import javafx.scene.Scene;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Player extends Paddle {
 
@@ -30,7 +26,7 @@ public class Player extends Paddle {
     }
 
 
-    public void update(Scene scene) {
+    public void update() {
 
         if(UserInput.input.contains(controllerUp)) {
             setPosY(getPosY() - getSpeedY() * MainGame.elapsedTime);
