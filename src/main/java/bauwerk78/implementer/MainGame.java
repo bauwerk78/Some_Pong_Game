@@ -59,7 +59,9 @@ public class MainGame extends Application {
         player1.setPosY(player1.getPosY() - player1.getHeight() / 2);
         player2 = new Player(windowWidth - 20, (windowHeight / 2d), 2);
         player2.setPosY(player2.getPosY() - player2.getHeight() / 2);
+        player2.setPosX(player2.getPosX() - player2.getWidth());
         computerOpponent = new ComputerOpponent(windowWidth - 20, (windowHeight / 2d));
+        computerOpponent.setPosX(computerOpponent.getPosX() - computerOpponent.getWidth());
         computerOpponent.setPosY(computerOpponent.getPosY() - computerOpponent.getHeight() / 2);
     }
 
