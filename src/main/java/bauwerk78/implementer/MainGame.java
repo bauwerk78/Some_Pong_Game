@@ -175,6 +175,7 @@ public class MainGame extends Application {
             public void handle(long currentNanoTime) {
                 nanoTimer(currentNanoTime);
                 mainLoop();
+                System.out.println(elapsedTime);
             }
         }.start();
 

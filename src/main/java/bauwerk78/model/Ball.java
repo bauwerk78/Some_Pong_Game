@@ -21,7 +21,7 @@ public class Ball extends GameObject implements Randomize {
     }
 
     private void init() {
-        setSpeedX(150);
+        setSpeedX(250);
         setWidth(15);
         setHeight(15);
         goingUp = Randomize.randBoolean();
@@ -35,7 +35,7 @@ public class Ball extends GameObject implements Randomize {
         goingUp = Randomize.randBoolean();
         goingRight = Randomize.randBoolean();
         ballOutOfBounds = false;
-        setSpeedX(150);
+        setSpeedX(250);
     }
 
     private void update() {
