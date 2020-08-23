@@ -1,6 +1,7 @@
 package bauwerk78.model;
 
 import bauwerk78.implementer.MainGame;
+import bauwerk78.settings.GameOptions;
 import javafx.scene.Scene;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.Glow;
@@ -71,7 +72,7 @@ public class GameMenu {
         glowEffect.setLevel(1);
         bloomEffect.setThreshold(bloomThreshold);
         menuImageView.setEffect(glowEffectMenu);
-        menuScene = new Scene(verticalBox, MainGame.windowWidth, MainGame.windowHeight);
+        menuScene = new Scene(verticalBox, GameOptions.windowWidth, GameOptions.windowHeight);
         menuScene.setFill(Color.BLACK);
     }
 

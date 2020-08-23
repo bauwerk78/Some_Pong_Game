@@ -1,10 +1,12 @@
 package bauwerk78.model;
 
 import bauwerk78.implementer.MainGame;
+import bauwerk78.settings.GameOptions;
+
+import static bauwerk78.settings.Statics.*;
 
 public class ComputerOpponent extends Paddle {
 
-    private int edgePadding = 5;
     private boolean goingUp;
 
     public ComputerOpponent(double posX, double posY) {
@@ -21,8 +23,8 @@ public class ComputerOpponent extends Paddle {
         if(mg.getBallYPosition() + (mg.getBallHeight() / 2) > getPosY() + (getHeight() / 2)) {
             setPosY(getPosY() + getSpeedY() * MainGame.elapsedTime);
             goingUp = false;
-            if(getPosY() + getHeight() >= MainGame.windowHeight - edgePadding) {
-                setPosY(MainGame.windowHeight - getHeight() - edgePadding);
+            if(getPosY() + getHeight() >= GameOptions.windowHeight - paddleEdgePadding) {
+                setPosY(GameOptions.windowHeight - getHeight() - paddleEdgePadding);
             }
 
         }
@@ -30,8 +32,8 @@ public class ComputerOpponent extends Paddle {
         if(mg.getBallYPosition() + (mg.getBallHeight() / 2) < getPosY() + (getHeight() / 2)) {
             setPosY(getPosY() - getSpeedY() * MainGame.elapsedTime);
             goingUp = true;
-            if(getPosY() <= edgePadding) {
-                setPosY(edgePadding);
+            if(getPosY() <= paddleEdgePadding) {
+                setPosY(paddleEdgePadding);
             }
         }
 

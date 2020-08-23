@@ -4,10 +4,11 @@ import bauwerk78.tools.Randomize;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import bauwerk78.settings.GameOptions;
 
 import static bauwerk78.implementer.MainGame.*;
 
-public class Ball extends GameObject implements Randomize {
+public class Ball extends GameObject {
 
     private boolean goingUp;
     private boolean goingRight;
@@ -21,25 +22,24 @@ public class Ball extends GameObject implements Randomize {
     }
 
     private void init() {
-        setSpeedX(250);
-        setWidth(15);
-        setHeight(15);
+        super.setSpeedX(150);
+        super.setWidth(15);
+        super.setHeight(15);
         goingUp = Randomize.randBoolean();
         goingRight = Randomize.randBoolean();
-        //System.out.println(goingRight);
     }
 
     public void reset() {
-        setPosX(windowWidth / 2d);
-        setPosY(windowHeight / 2d);
+        super.setPosX(GameOptions.windowWidth / 2d);
+        super.setPosY(GameOptions.windowHeight / 2d);
+        super.setSpeedX(150);
         goingUp = Randomize.randBoolean();
         goingRight = Randomize.randBoolean();
         ballOutOfBounds = false;
-        setSpeedX(250);
     }
 
     private void update() {
-        if(getPosX() <= 0 || getPosX() + getWidth() >= windowWidth) {
+        if(getPosX() <= 0 || getPosX() + getWidth() >= GameOptions.windowWidth) {
             ballOutOfBounds = true;
             return;
         }
@@ -48,7 +48,7 @@ public class Ball extends GameObject implements Randomize {
             goingUp = false;
         }
 
-        if(getPosY() + getHeight() >= windowHeight) {
+        if(getPosY() + getHeight() >= GameOptions.windowHeight) {
             goingUp = true;
         }
 
@@ -63,10 +63,6 @@ public class Ball extends GameObject implements Randomize {
         } else {
             setPosY(getPosY() + getSpeedX() * elapsedTime);
         }
-
-
-        //System.out.println(getPosX() + " " + getPosY());
-
     }
 
     public void render(GraphicsContext gc) {

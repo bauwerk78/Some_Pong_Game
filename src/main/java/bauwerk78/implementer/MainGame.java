@@ -2,6 +2,9 @@ package bauwerk78.implementer;
 
 
 import bauwerk78.model.*;
+import bauwerk78.settings.GameOptions;
+import bauwerk78.settings.GameVariables;
+import bauwerk78.settings.Statics;
 import bauwerk78.tools.Delayer;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -11,39 +14,32 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 
 public class MainGame extends Application {
 
-    public static final int windowWidth = 800;
-    public static final int windowHeight = 600;
     public static Long startNanoTime = System.nanoTime();
     public static double elapsedTime;
     public static Stage stage;
     public static Group rootGroup = new Group();
+    public static GraphicsContext gc;
 
-    private Scene gameScene = new Scene(rootGroup, windowWidth, windowHeight);
-    private Delayer collisionDelayer = new Delayer();
-    private Delayer resetDelayer = new Delayer();
-    private GraphicsContext gc;
+    private Scene gameScene = new Scene(rootGroup, GameOptions.windowWidth, GameOptions.windowHeight);
+    private final Delayer collisionDelayer = new Delayer();
+    private final Delayer resetDelayer = new Delayer();
+
     private Canvas canvas;
+    private final Score score = new Score();
     private Ball ball;
     private Player player1;
     private Player player2;
-    private UserInput userInput = new UserInput();
+    private final UserInput userInput = new UserInput();
     private ComputerOpponent computerOpponent;
-    private int fontSize = 20;
-    private Font scoreFont = Font.font("Verdana", FontWeight.BOLD, fontSize);
-    private GameMenu gameMenu = new GameMenu();
+    private final GameMenu gameMenu = new GameMenu();
 
     private boolean checkCollision = true;
     private boolean resetTimer = true;
-    private int scoreP1;
-    private int scoreP2;
-    private double speedMultiplier = 1.05;
 
 
     public MainGame() {
@@ -52,26 +48,15 @@ public class MainGame extends Application {
 
     public void init() {
         initGraphics();
-        ball = new Ball(windowWidth / 2d, windowHeight / 2d);
-        player1 = new Player(20, (windowHeight / 2d), 1);
+        ball = new Ball(GameOptions.windowWidth / 2d, GameOptions.windowHeight / 2d);
+        player1 = new Player(20, (GameOptions.windowHeight / 2d), 1);
         player1.setPosY(player1.getPosY() - player1.getHeight() / 2);
-        player2 = new Player(windowWidth - 20, (windowHeight / 2d), 2);
+        player2 = new Player(GameOptions.windowWidth - 20, (GameOptions.windowHeight / 2d), 2);
         player2.setPosY(player2.getPosY() - player2.getHeight() / 2);
         player2.setPosX(player2.getPosX() - player2.getWidth());
-        computerOpponent = new ComputerOpponent(windowWidth - 20, (windowHeight / 2d));
+        computerOpponent = new ComputerOpponent(GameOptions.windowWidth - 20, (GameOptions.windowHeight / 2d));
         computerOpponent.setPosX(computerOpponent.getPosX() - computerOpponent.getWidth());
         computerOpponent.setPosY(computerOpponent.getPosY() - computerOpponent.getHeight() / 2);
-
-    }
-
-    public void showScore() {
-        gc.setFont(scoreFont);
-        gc.setFill(Color.WHITE);
-        String scoreP1Text = "P1: " + scoreP1;
-        String scoreP2Text = "P2: " + scoreP2;
-        gc.fillText(scoreP1Text, windowWidth / 2d - (windowWidth / 4d), 30);
-        gc.fillText(scoreP2Text, windowWidth / 2d + (windowWidth / 4d) - (fontSize * scoreP2Text.length()) / 2d, 30);
-
     }
 
     public void update() {
@@ -82,7 +67,7 @@ public class MainGame extends Application {
                     || collisionDetection(ball.collidingBox(), player2.collidingBox())) {
 
                 ball.setGoingRight(!ball.isGoingRight());
-                ball.setSpeedX(ball.getSpeedX() * speedMultiplier);
+                ball.setSpeedX(ball.getSpeedX() * GameVariables.ballSpeedMultiplier);
                 checkCollision = false;
             }
         }
@@ -94,9 +79,9 @@ public class MainGame extends Application {
         if (ball.isBallOutOfBounds() && resetTimer) {
             resetTimer = false;
             if (ball.isGoingRight()) {
-                scoreP1++;
+                score.setScoreP1(score.getScoreP1() + 1);
             } else {
-                scoreP2++;
+                score.setScoreP2(score.getScoreP2() + 1);
             }
         }
 
@@ -111,16 +96,16 @@ public class MainGame extends Application {
     public void render() {
         update();
         gc.setFill(Color.BLACK);
-        gc.fillRect(0, 0, windowWidth, windowHeight);
+        gc.fillRect(0, 0, GameOptions.windowWidth, GameOptions.windowHeight);
         if (!ball.isBallOutOfBounds()) {
             ball.render(gc);
         }
-        gc.strokeLine(windowWidth / 2d, 0, windowWidth / 2d, windowHeight);
+        gc.strokeLine(GameOptions.windowWidth / 2d, 0, GameOptions.windowWidth / 2d, GameOptions.windowHeight);
         gc.setStroke(Color.WHITE);
         gc.stroke();
         player1.update();
         player1.render(gc);
-        if(gameMenu.getNumberOfPlayers() == 1) {
+        if (gameMenu.getNumberOfPlayers() == 1) {
             computerOpponent.update(this);
             computerOpponent.render(gc);
         } else {
@@ -128,9 +113,7 @@ public class MainGame extends Application {
             player2.render(gc);
         }
 
-        showScore();
-
-
+        score.showScore();
     }
 
     public void mainLoop() {
@@ -151,7 +134,7 @@ public class MainGame extends Application {
     }
 
     public void initGraphics() {
-        canvas = new Canvas(windowWidth, windowHeight);
+        canvas = new Canvas(GameOptions.windowWidth, GameOptions.windowHeight);
         gc = canvas.getGraphicsContext2D();
         rootGroup.getChildren().addAll(canvas);
     }
@@ -164,7 +147,7 @@ public class MainGame extends Application {
     @Override
     public void start(Stage stage) {
         MainGame.stage = stage;
-        MainGame.stage.setTitle("Some Pong Game");
+        MainGame.stage.setTitle(Statics.windowGameTitle);
 
         MainGame.stage.setScene(gameScene);
 
@@ -180,7 +163,6 @@ public class MainGame extends Application {
         }.start();
 
         MainGame.stage.show();
-
 
     }
 

@@ -5,6 +5,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import static bauwerk78.settings.Statics.*;
+
 public class Paddle extends GameObject {
 
     public Paddle(double posX, double posY) {
@@ -14,16 +16,14 @@ public class Paddle extends GameObject {
     }
 
     private void init() {
-        setSpeedY(250);
-        setWidth(20);
-        setHeight(80);
+        setSpeedY(paddleSpeed);
+        setWidth(paddleWidth);
+        setHeight(paddleHeight);
     }
 
     public void render(GraphicsContext gc) {
         gc.setFill(Color.WHITE);
         gc.fillRect(getPosX(), getPosY(), getWidth(), getHeight());
-        gc.setFill(Color.RED);
-
     }
 
     public Rectangle2D collidingBox() {

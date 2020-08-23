@@ -4,7 +4,7 @@ import java.util.Random;
 
 public interface Randomize {
 
-    static Random rand = new Random();
+    Random rand = new Random();
 
 
     static boolean randBoolean() {
