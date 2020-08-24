@@ -4,7 +4,7 @@ package bauwerk78.implementer;
 import bauwerk78.model.*;
 import bauwerk78.settings.GameOptions;
 import bauwerk78.settings.GameVariables;
-import bauwerk78.settings.Statics;
+import bauwerk78.settings.StaticFinals;
 import bauwerk78.tools.Delayer;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -71,7 +71,7 @@ public class MainGame extends Application {
                 checkCollision = false;
             }
         }
-        //Make sure the intersects detection does not happen several times in a row as in ball gets stuck to paddle.
+        //Makes sure the intersects detection does not happen several times in a row as in ball gets stuck to paddle.
         if (!checkCollision) {
             checkCollision = collisionDelayer.delayTimer(0.5);
         }
@@ -147,7 +147,7 @@ public class MainGame extends Application {
     @Override
     public void start(Stage stage) {
         MainGame.stage = stage;
-        MainGame.stage.setTitle(Statics.windowGameTitle);
+        MainGame.stage.setTitle(StaticFinals.windowGameTitle);
 
         MainGame.stage.setScene(gameScene);
 

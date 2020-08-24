@@ -90,7 +90,6 @@ public class GameMenu {
                 bloomThresholdGoingUp = true;
             }
         }
-        System.out.println(bloomThreshold);
     }
 
     public void pulsingGlowMenu() {
@@ -107,7 +106,6 @@ public class GameMenu {
                 glowLevelGoingUp = true;
             }
         }
-        //System.out.println(glowLevel);
     }
 
     public void updateMenu() {

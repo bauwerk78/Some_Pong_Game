@@ -5,7 +5,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-import static bauwerk78.settings.Statics.*;
+import static bauwerk78.settings.StaticFinals.*;
 
 public class Paddle extends GameObject {
 

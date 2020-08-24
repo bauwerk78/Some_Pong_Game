@@ -3,7 +3,7 @@ package bauwerk78.model;
 import bauwerk78.implementer.MainGame;
 import bauwerk78.settings.GameOptions;
 
-import static bauwerk78.settings.Statics.*;
+import static bauwerk78.settings.StaticFinals.*;
 
 public class ComputerOpponent extends Paddle {
 

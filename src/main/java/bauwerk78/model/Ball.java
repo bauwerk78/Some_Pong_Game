@@ -80,18 +80,6 @@ public class Ball extends GameObject {
         return ballOutOfBounds;
     }
 
-    public void setBallOutOfBounds(boolean ballOutOfBounds) {
-        this.ballOutOfBounds = ballOutOfBounds;
-    }
-
-    public boolean isGoingUp() {
-        return goingUp;
-    }
-
-    public void setGoingUp(boolean goingUp) {
-        this.goingUp = goingUp;
-    }
-
     public boolean isGoingRight() {
         return goingRight;
     }

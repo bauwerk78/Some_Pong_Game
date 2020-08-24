@@ -1,16 +1,25 @@
 package bauwerk78.settings;
 
-public interface Statics {
+public interface StaticFinals {
 
     //Window related settings.
     String windowGameTitle = "Some pong game";
+
+    //Game control settings.
+    //Keyboard settings.
+    //Options menu.
+    //TODO not implemented yet.
+    public static String keyboardUp = "UP";
+    public static String keyboardDown = "DOWN";
+    public static String keyboardLeft = "LEFT";
+    public static String keyboardRight = "RIGHT";
+    public static String keyboardSelect = "ENTER";
 
     //Ball settings.
     double ballOnePlayerSpeed = 150;
     double ballTwoPlayerSpeed = 200;
     double ballStartPosX = (GameOptions.windowWidth / 2d);
     double ballStartPosY = (GameOptions.windowHeight / 2d);
-
 
     //Paddle settings.
     double paddleSpeed = 250;

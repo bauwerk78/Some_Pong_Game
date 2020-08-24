@@ -1,14 +1,16 @@
 package bauwerk78.model;
 
 import bauwerk78.implementer.MainGame;
-import static bauwerk78.settings.Statics.*;
+import static bauwerk78.settings.StaticFinals.*;
 import bauwerk78.settings.GameOptions;
 
 public class Player extends Paddle {
 
     private final int player;
-    private String controllerUp;
-    private String controllerDown;
+    private String keyboardUp;
+    private String keyboardDown;
+    //TODO implement action-key.
+    private String keyboardActionKey;
 
     public Player(double posX, double posY, int player) {
         super(posX, posY);
@@ -18,18 +20,18 @@ public class Player extends Paddle {
 
     private void init() {
         if(player == 1) {
-            controllerUp = "W";
-            controllerDown = "S";
+            keyboardUp = GameOptions.keyboardOneUp;
+            keyboardDown = GameOptions.keyboardOneDown;
         } else {
-            controllerUp = "UP";
-            controllerDown = "DOWN";
+            keyboardUp = GameOptions.keyboardTwoUp;
+            keyboardDown = GameOptions.keyboardTwoDown;
         }
     }
 
 
     public void update() {
 
-        if(UserInput.input.contains(controllerUp)) {
+        if(UserInput.input.contains(keyboardUp)) {
             setPosY(getPosY() - getSpeedY() * MainGame.elapsedTime);
             if(getPosY() <= paddleEdgePadding) {
                 setPosY(paddleEdgePadding);
@@ -37,7 +39,7 @@ public class Player extends Paddle {
 
         }
 
-        if(UserInput.input.contains(controllerDown)) {
+        if(UserInput.input.contains(keyboardDown)) {
             setPosY(getPosY() + getSpeedY() * MainGame.elapsedTime);
             if(getPosY() + getHeight() >= GameOptions.windowHeight - paddleEdgePadding) {
                 setPosY(GameOptions.windowHeight - getHeight() - paddleEdgePadding);
