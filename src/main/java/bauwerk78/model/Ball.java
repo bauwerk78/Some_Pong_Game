@@ -6,7 +6,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import bauwerk78.settings.GameOptions;
 
-import static bauwerk78.implementer.MainGame.*;
+import static bauwerk78.tools.ElapsedTimeTimer.elapsedTime;
+
 
 public class Ball extends GameObject {
 
@@ -17,6 +18,14 @@ public class Ball extends GameObject {
     public Ball(double posX, double posY) {
         super.setPosX(posX);
         super.setPosY(posY);
+
+        init();
+    }
+
+    public Ball(double posX, double posY, double speedX) {
+        super.setPosX(posX);
+        super.setPosY(posY);
+        super.setSpeedX(speedX);
 
         init();
     }

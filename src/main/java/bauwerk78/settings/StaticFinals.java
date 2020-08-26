@@ -2,11 +2,13 @@ package bauwerk78.settings;
 
 public interface StaticFinals {
 
+    /*static finals that aren't supposed to be adjusted by the user.*/
+
     //Window related settings.
     String windowGameTitle = "Some pong game";
 
     //Game control settings.
-    //Keyboard settings.
+    /* Keyboard settings.*/
     //Options menu.
     //TODO not implemented yet.
     public static String keyboardUp = "UP";

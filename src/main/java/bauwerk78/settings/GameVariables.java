@@ -5,8 +5,7 @@ import javafx.scene.text.FontWeight;
 
 public class GameVariables {
 
-    //Paddle
-    //public static int paddleEdgePadding = (5 / GameOptions.windowHeight) * GameOptions.windowHeight ;
+    /*Certain game variables collected in one file for easy editing and adjusting*/
 
     //Game score settings.
     public static int scoreFontSize = (int)(GameOptions.windowHeight * 0.034);

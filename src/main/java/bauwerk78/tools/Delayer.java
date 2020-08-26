@@ -1,7 +1,7 @@
 package bauwerk78.tools;
 
 
-import static bauwerk78.implementer.MainGame.elapsedTime;
+import static bauwerk78.tools.ElapsedTimeTimer.elapsedTime;
 
 public class Delayer {
 

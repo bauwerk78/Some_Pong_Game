@@ -6,6 +6,7 @@ import bauwerk78.settings.GameOptions;
 import bauwerk78.settings.GameVariables;
 import bauwerk78.settings.StaticFinals;
 import bauwerk78.tools.Delayer;
+import bauwerk78.tools.ElapsedTimeTimer;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -19,17 +20,14 @@ import javafx.stage.Stage;
 
 public class MainGame extends Application {
 
-    public static Long startNanoTime = System.nanoTime();
-    public static double elapsedTime;
     public static Stage stage;
     public static Group rootGroup = new Group();
     public static GraphicsContext gc;
 
-    private Scene gameScene = new Scene(rootGroup, GameOptions.windowWidth, GameOptions.windowHeight);
+    private final Scene gameScene = new Scene(rootGroup, GameOptions.windowWidth, GameOptions.windowHeight);
     private final Delayer collisionDelayer = new Delayer();
     private final Delayer resetDelayer = new Delayer();
 
-    private Canvas canvas;
     private final Score score = new Score();
     private Ball ball;
     private Player player1;
@@ -117,16 +115,17 @@ public class MainGame extends Application {
     }
 
     public void mainLoop() {
+        //If not in menu, start the game.
         if (gameMenu.isStartGame()) {
             if (!stage.getScene().equals(gameScene)) {
                 stage.setScene(gameScene);
             }
             render();
         }
-
+        //If in game menu selection.
         if (!gameMenu.isStartGame()) {
-            if (!stage.getScene().equals(gameMenu.getMenuScene())) {
-                stage.setScene(gameMenu.getMenuScene());
+            if (!stage.getScene().equals(gameMenu.getSceneMenu())) {
+                stage.setScene(gameMenu.getSceneMenu());
             }
             gameMenu.updateMenu();
         }
@@ -134,14 +133,9 @@ public class MainGame extends Application {
     }
 
     public void initGraphics() {
-        canvas = new Canvas(GameOptions.windowWidth, GameOptions.windowHeight);
+        Canvas canvas = new Canvas(GameOptions.windowWidth, GameOptions.windowHeight);
         gc = canvas.getGraphicsContext2D();
         rootGroup.getChildren().addAll(canvas);
-    }
-
-    public static void nanoTimer(long currentNanoTime) {
-        elapsedTime = (currentNanoTime - startNanoTime.doubleValue()) / 1_000_000_000d;
-        startNanoTime = currentNanoTime;
     }
 
     @Override
@@ -156,9 +150,8 @@ public class MainGame extends Application {
 
         new AnimationTimer() {
             public void handle(long currentNanoTime) {
-                nanoTimer(currentNanoTime);
+                ElapsedTimeTimer.nanoTimer(currentNanoTime);
                 mainLoop();
-                System.out.println(elapsedTime);
             }
         }.start();
 
@@ -172,14 +165,6 @@ public class MainGame extends Application {
 
     public double getBallYPosition() {
         return ball.getPosY();
-    }
-
-    public double getBallXPosition() {
-        return ball.getPosX();
-    }
-
-    public double getBallWidth() {
-        return ball.getWidth();
     }
 
     public double getBallHeight() {

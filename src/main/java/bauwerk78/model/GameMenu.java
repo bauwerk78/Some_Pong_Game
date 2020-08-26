@@ -1,40 +1,26 @@
 package bauwerk78.model;
 
-import bauwerk78.implementer.MainGame;
 import bauwerk78.settings.GameOptions;
+import bauwerk78.settings.StaticFinals;
 import javafx.scene.Scene;
-import javafx.scene.effect.Bloom;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameMenu {
 
-    private Image menuImage;
-    private Image option1;
-    private Image option2;
-    private Image option3;
+    private final ImageView[] imageViewsSelection = new ImageView[3];
 
-    private ImageView menuImageView;
-    private ImageView[] imageViews = new ImageView[3];
+    private Scene sceneMenu;
 
-    private VBox verticalBox;
-    private Scene menuScene;
+    private final UserInput userInput = new UserInput();
 
-    private UserInput userInput = new UserInput();
-    private List<String> menuInput = new ArrayList<>();
-
-    private Glow glowEffect = new Glow();
-    private Bloom bloomEffect = new Bloom();
-    private double bloomThreshold;
-    private boolean bloomThresholdGoingUp = true;
-
-    private Glow glowEffectMenu = new Glow();
+    private final Glow effectGlow = new Glow();
+    private final Glow effectGlowMenu = new Glow();
     private double glowLevel;
     private boolean glowLevelGoingUp = true;
 
@@ -49,47 +35,27 @@ public class GameMenu {
     }
 
     private void init() {
-        menuImage = new Image("file:Images/MainMenu/main_menu.png");
-        option1 = new Image("file:Images/MainMenu/one_player.png");
-        option2 = new Image("file:Images/MainMenu/two_players.png");
-        option3 = new Image("file:Images/MainMenu/exit_game.png");
+        Image imageMenu = new Image("file:Images/MainMenu/main_menu.png");
+        Image imageOnePlayer = new Image("file:Images/MainMenu/one_player.png");
+        Image imageTwoPlayer = new Image("file:Images/MainMenu/two_players.png");
+        Image imageExitGame = new Image("file:Images/MainMenu/exit_game.png");
 
-        menuImageView = new ImageView();
-        menuImageView.setImage(menuImage);
-        menuImageView.setVisible(true);
-        menuImageView.setFitWidth(menuImage.getWidth());
-        menuImageView.setFitHeight(menuImage.getHeight());
+        ImageView imageViewMenu = new ImageView();
+        imageViewMenu.setImage(imageMenu);
 
-        imageViews[0] = new ImageView(option1);
-        imageViews[1] = new ImageView(option2);
-        imageViews[2] = new ImageView(option3);
+        imageViewsSelection[0] = new ImageView(imageOnePlayer);
+        imageViewsSelection[1] = new ImageView(imageTwoPlayer);
+        imageViewsSelection[2] = new ImageView(imageExitGame);
 
-        verticalBox = new VBox(menuImageView, imageViews[0], imageViews[1], imageViews[2]);
+        VBox verticalBox = new VBox(imageViewMenu, imageViewsSelection[0], imageViewsSelection[1], imageViewsSelection[2]);
         verticalBox.setPrefSize(150, 125);
         verticalBox.relocate(325, 125);
         verticalBox.setVisible(true);
 
-        glowEffect.setLevel(1);
-        bloomEffect.setThreshold(bloomThreshold);
-        menuImageView.setEffect(glowEffectMenu);
-        menuScene = new Scene(verticalBox, GameOptions.windowWidth, GameOptions.windowHeight);
-        menuScene.setFill(Color.BLACK);
-    }
-
-    public void pulsingBloomMenu() {
-        if(bloomThresholdGoingUp) {
-            bloomThreshold += 0.01;
-            if(bloomThreshold >= 1) {
-                bloomThreshold = 1;
-                bloomThresholdGoingUp = false;
-            }
-        } else {
-            bloomThreshold -= 0.01;
-            if(bloomThreshold <= 0) {
-                bloomThreshold = 0;
-                bloomThresholdGoingUp = true;
-            }
-        }
+        effectGlow.setLevel(1);
+        imageViewMenu.setEffect(effectGlowMenu);
+        sceneMenu = new Scene(verticalBox, GameOptions.windowWidth, GameOptions.windowHeight);
+        sceneMenu.setFill(Color.BLACK);
     }
 
     public void pulsingGlowMenu() {
@@ -109,25 +75,23 @@ public class GameMenu {
     }
 
     public void updateMenu() {
-        userInput.getPlayerInput(menuScene);
-        menuInput = userInput.getInputList();
+        userInput.getPlayerInput(sceneMenu);
+        List<String> menuInput = userInput.getInputList();
 
-/*        pulsingBloomMenu();
-        bloomEffect.setThreshold(bloomThreshold);*/
         pulsingGlowMenu();
-        glowEffectMenu.setLevel(glowLevel);
+        effectGlowMenu.setLevel(glowLevel);
 
-        if (menuInput.contains("UP")) {
+        if (menuInput.contains(StaticFinals.keyboardUp)) {
             selectedItem--;
-            menuInput.remove("UP");
+            menuInput.remove(StaticFinals.keyboardUp);
             if(selectedItem < 0) {
                 selectedItem = 0;
             }
         }
 
-        if (menuInput.contains("DOWN")) {
+        if (menuInput.contains(StaticFinals.keyboardDown)) {
             selectedItem++;
-            menuInput.remove("DOWN");
+            menuInput.remove(StaticFinals.keyboardDown);
             if(selectedItem > 2) {
                 selectedItem = 2;
             }
@@ -136,24 +100,24 @@ public class GameMenu {
         //Remove glow effect and add to the correct selection.
         for (int i = 0; i < 3; i++) {
             if (i != selectedItem) {
-                imageViews[i].setEffect(null);
+                imageViewsSelection[i].setEffect(null);
             } else {
-                if (imageViews[i].getEffect() == null) {
-                    imageViews[i].setEffect(glowEffect);
+                if (imageViewsSelection[i].getEffect() == null) {
+                    imageViewsSelection[i].setEffect(effectGlow);
                 }
             }
         }
 
-        if(menuInput.contains("ENTER")) {
+        if(menuInput.contains(StaticFinals.keyboardSelect)) {
             if(selectedItem == 0) {
                 numberOfPlayers = 1;
-                menuInput.remove("ENTER");
+                menuInput.remove(StaticFinals.keyboardSelect);
                 startGame = true;
             }
 
             if(selectedItem == 1) {
                 numberOfPlayers = 2;
-                menuInput.remove("ENTER");
+                menuInput.remove(StaticFinals.keyboardSelect);
                 startGame = true;
             }
 
@@ -166,8 +130,8 @@ public class GameMenu {
     }
 
 
-    public Scene getMenuScene() {
-        return menuScene;
+    public Scene getSceneMenu() {
+        return sceneMenu;
     }
 
     public int getNumberOfPlayers() {
