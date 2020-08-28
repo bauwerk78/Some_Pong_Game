@@ -5,11 +5,11 @@ import bauwerk78.model.*;
 import bauwerk78.settings.GameOptions;
 import bauwerk78.settings.GameVariables;
 import bauwerk78.settings.StaticFinals;
+import bauwerk78.tools.CollisionDetection;
 import bauwerk78.tools.Delayer;
 import bauwerk78.tools.ElapsedTimeTimer;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -27,6 +27,7 @@ public class MainGame extends Application {
     private final Scene gameScene = new Scene(rootGroup, GameOptions.windowWidth, GameOptions.windowHeight);
     private final Delayer collisionDelayer = new Delayer();
     private final Delayer resetDelayer = new Delayer();
+    private final CollisionDetection collisionDetection = new CollisionDetection();
 
     private final Score score = new Score();
     private Ball ball;
@@ -61,8 +62,8 @@ public class MainGame extends Application {
         userInput.getPlayerInput(gameScene);
 
         if (checkCollision) {
-            if (collisionDetection(ball.collidingBox(), player1.collidingBox()) || collisionDetection(ball.collidingBox(), computerOpponent.collidingBox())
-                    || collisionDetection(ball.collidingBox(), player2.collidingBox())) {
+            if (collisionDetection.collisionDetection(ball.collidingBox(), player1.collidingBox()) || collisionDetection.collisionDetection(ball.collidingBox(), computerOpponent.collidingBox())
+                    || collisionDetection.collisionDetection(ball.collidingBox(), player2.collidingBox())) {
 
                 ball.setGoingRight(!ball.isGoingRight());
                 ball.setSpeedX(ball.getSpeedX() * GameVariables.ballSpeedMultiplier);
@@ -159,9 +160,9 @@ public class MainGame extends Application {
 
     }
 
-    public static boolean collisionDetection(Rectangle2D object1, Rectangle2D object2) {
+/*    public static boolean collisionDetection.collisionDetection(Rectangle2D object1, Rectangle2D object2) {
         return object1.intersects(object2);
-    }
+    }*/
 
     public double getBallYPosition() {
         return ball.getPosY();
