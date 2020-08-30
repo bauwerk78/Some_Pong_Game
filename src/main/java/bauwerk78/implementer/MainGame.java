@@ -18,6 +18,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 public class MainGame extends Application {
@@ -158,8 +159,9 @@ public class MainGame extends Application {
         MainGame.stage = stage;
         MainGame.stage.setTitle(StaticFinals.windowGameTitle);
 
-        MainGame.stage.setScene(sceneMainGame);
+        MainGame.stage.setScene(gameMenu.getSceneMenu());
 
+        MainGame.stage.initStyle(StageStyle.DECORATED);
         MainGame.stage.setResizable(false);
         MainGame.stage.sizeToScene();
 

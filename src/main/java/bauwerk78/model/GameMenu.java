@@ -13,7 +13,7 @@ import java.util.List;
 
 public class GameMenu {
 
-    private final ImageView[] imageViewsSelection = new ImageView[3];
+    private final ImageView[] imageViewsSelection = new ImageView[4];
 
     private Scene sceneMenu;
 
@@ -38,6 +38,7 @@ public class GameMenu {
         Image imageMenu = new Image("file:Images/MainMenu/main_menu.png");
         Image imageOnePlayer = new Image("file:Images/MainMenu/one_player.png");
         Image imageTwoPlayer = new Image("file:Images/MainMenu/two_players.png");
+        Image imageOptions = new Image("file:Images/MainMenu/options.png");
         Image imageExitGame = new Image("file:Images/MainMenu/exit_game.png");
 
         ImageView imageViewMenu = new ImageView();
@@ -45,9 +46,10 @@ public class GameMenu {
 
         imageViewsSelection[0] = new ImageView(imageOnePlayer);
         imageViewsSelection[1] = new ImageView(imageTwoPlayer);
-        imageViewsSelection[2] = new ImageView(imageExitGame);
+        imageViewsSelection[2] = new ImageView(imageOptions);
+        imageViewsSelection[3] = new ImageView(imageExitGame);
 
-        VBox verticalBox = new VBox(imageViewMenu, imageViewsSelection[0], imageViewsSelection[1], imageViewsSelection[2]);
+        VBox verticalBox = new VBox(imageViewMenu, imageViewsSelection[0], imageViewsSelection[1], imageViewsSelection[2], imageViewsSelection[3]);
         verticalBox.setPrefSize(150, 125);
         verticalBox.relocate(325, 125);
         verticalBox.setVisible(true);
@@ -92,13 +94,13 @@ public class GameMenu {
         if (menuInput.contains(StaticFinals.keyboardDown)) {
             selectedItem++;
             menuInput.remove(StaticFinals.keyboardDown);
-            if(selectedItem > 2) {
-                selectedItem = 2;
+            if(selectedItem > imageViewsSelection.length - 1) {
+                selectedItem = imageViewsSelection.length - 1;
             }
         }
 
         //Remove glow effect and add to the correct selection.
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < imageViewsSelection.length; i++) {
             if (i != selectedItem) {
                 imageViewsSelection[i].setEffect(null);
             } else {
@@ -120,8 +122,13 @@ public class GameMenu {
                 menuInput.remove(StaticFinals.keyboardSelect);
                 startGame = true;
             }
-
+            //TODO
             if(selectedItem == 2) {
+                System.out.println("Options menu, not integrated yet.");
+                menuInput.remove(StaticFinals.keyboardSelect);
+            }
+
+            if(selectedItem == 3) {
                 System.exit(0);
             }
         }
