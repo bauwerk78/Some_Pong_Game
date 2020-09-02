@@ -2,6 +2,7 @@ package bauwerk78.implementer;
 
 
 import bauwerk78.model.*;
+import bauwerk78.scenes.GameMenu;
 import bauwerk78.settings.GameOptions;
 import bauwerk78.settings.GameVariables;
 import bauwerk78.settings.StaticFinals;
@@ -10,13 +11,10 @@ import bauwerk78.tools.Delayer;
 import bauwerk78.tools.ElapsedTimeTimer;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -29,8 +27,8 @@ public class MainGame extends Application {
 
     private final Scene sceneMainGame = new Scene(rootGroup, GameOptions.windowWidth, GameOptions.windowHeight);
 
-    private final Delayer collisionDelayer = new Delayer();
-    private final Delayer resetDelayer = new Delayer();
+    private final Delayer delayerPaddleCollision = new Delayer();
+    private final Delayer delayerResetOfRound = new Delayer();
     private final CollisionDetection collisionDetection = new CollisionDetection();
     private final UserInput userInput = new UserInput();
     private final GameMenu gameMenu = new GameMenu();
@@ -47,21 +45,15 @@ public class MainGame extends Application {
 
 
     public MainGame() {
-        init();
+        /*init(); triggers by default by the launcher*/
     }
 
     public void initGraphics() {
         Canvas canvas = new Canvas(GameOptions.windowWidth, GameOptions.windowHeight);
         gc = canvas.getGraphicsContext2D();
 
-        Background background = new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY));
-
-        Region regionGameBackground = new Region();
-        regionGameBackground.setPrefSize(GameOptions.windowWidth, GameOptions.windowHeight);
-        regionGameBackground.setBackground(background);
-        regionGameBackground.setVisible(true);
-
-        rootGroup.getChildren().addAll(regionGameBackground, canvas);
+        GameBoard gameBoard = new GameBoard();
+        rootGroup.getChildren().addAll(gameBoard.getPaneBackground(), canvas);
     }
 
     public void init() {
@@ -77,7 +69,7 @@ public class MainGame extends Application {
         computerOpponent.setPosY(computerOpponent.getPosY() - computerOpponent.getHeight() / 2);
     }
 
-    public void update() {
+    public void updateGameRound() {
         userInput.getPlayerInput(sceneMainGame);
 
         if (collisionCheck) {
@@ -91,7 +83,7 @@ public class MainGame extends Application {
         }
         //Makes sure the collision detection does not happen several times in a row as in ball gets stuck to paddle.
         if (!collisionCheck) {
-            collisionCheck = collisionDelayer.delayTimer(0.5);
+            collisionCheck = delayerPaddleCollision.delayTimer(0.5);
         }
 
         if (ball.isBallOutOfBounds() && roundResetTimer) {
@@ -104,7 +96,7 @@ public class MainGame extends Application {
         }
 
         if (!roundResetTimer) {
-            roundResetTimer = resetDelayer.delayTimer(2);
+            roundResetTimer = delayerResetOfRound.delayTimer(2);
             if (roundResetTimer) {
                 ball.reset();
             }
@@ -112,17 +104,16 @@ public class MainGame extends Application {
     }
 
     public void renderGamePlay() {
-        update();
-        gc.clearRect(0 , 0, GameOptions.windowWidth, GameOptions.windowHeight);
+        updateGameRound();
+        gc.clearRect(0, 0, GameOptions.windowWidth, GameOptions.windowHeight);
 
         if (!ball.isBallOutOfBounds()) {
             ball.render(gc);
         }
-        gc.strokeLine(GameOptions.windowWidth / 2d, 0, GameOptions.windowWidth / 2d, GameOptions.windowHeight);
-        gc.setStroke(Color.WHITE);
-        gc.stroke();
+
         player1.update();
         player1.render(gc);
+
         if (gameMenu.getNumberOfPlayers() == 1) {
             computerOpponent.update(this);
             computerOpponent.render(gc);
@@ -151,7 +142,6 @@ public class MainGame extends Application {
         }
 
     }
-
 
 
     @Override

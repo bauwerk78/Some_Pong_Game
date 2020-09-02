@@ -1,5 +1,6 @@
-package bauwerk78.model;
+package bauwerk78.scenes;
 
+import bauwerk78.model.UserInput;
 import bauwerk78.settings.GameOptions;
 import bauwerk78.settings.StaticFinals;
 import javafx.scene.Scene;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class GameMenu {
 
-    private final ImageView[] imageViewsSelection = new ImageView[4];
+    private final ImageView[] imageViewsSelection = new ImageView[5];
 
     private Scene sceneMenu;
 
@@ -39,6 +40,7 @@ public class GameMenu {
         Image imageOnePlayer = new Image("file:Images/MainMenu/one_player.png");
         Image imageTwoPlayer = new Image("file:Images/MainMenu/two_players.png");
         Image imageOptions = new Image("file:Images/MainMenu/options.png");
+        Image imagePlayViaNetwork = new Image("file:Images/MainMenu/play_via_network.png");
         Image imageExitGame = new Image("file:Images/MainMenu/exit_game.png");
 
         ImageView imageViewMenu = new ImageView();
@@ -47,9 +49,10 @@ public class GameMenu {
         imageViewsSelection[0] = new ImageView(imageOnePlayer);
         imageViewsSelection[1] = new ImageView(imageTwoPlayer);
         imageViewsSelection[2] = new ImageView(imageOptions);
-        imageViewsSelection[3] = new ImageView(imageExitGame);
+        imageViewsSelection[3] = new ImageView(imagePlayViaNetwork);
+        imageViewsSelection[4] = new ImageView(imageExitGame);
 
-        VBox verticalBox = new VBox(imageViewMenu, imageViewsSelection[0], imageViewsSelection[1], imageViewsSelection[2], imageViewsSelection[3]);
+        VBox verticalBox = new VBox(imageViewMenu, imageViewsSelection[0], imageViewsSelection[1], imageViewsSelection[2], imageViewsSelection[3], imageViewsSelection[4]);
         verticalBox.setPrefSize(150, 125);
         verticalBox.relocate(325, 125);
         verticalBox.setVisible(true);
@@ -127,8 +130,13 @@ public class GameMenu {
                 System.out.println("Options menu, not integrated yet.");
                 menuInput.remove(StaticFinals.keyboardSelect);
             }
-
+            //TODO
             if(selectedItem == 3) {
+                System.out.println("Network gameplay, not integrated yet.");
+                menuInput.remove(StaticFinals.keyboardSelect);
+            }
+
+            if(selectedItem == 4) {
                 System.exit(0);
             }
         }

@@ -13,4 +13,13 @@ public class GameVariables {
 
     //Ball settings.
     public static double ballSpeedMultiplier = 1.05;
+
+    //Paddle settings.
+    public static double paddlePlayerOneHeight;
+    public static double paddlePlayerOneWidth;
+    public static double paddlePlayerOneSpeed;
+
+    public static double paddlePlayerTwoHeight;
+    public static double paddlePlayerTwoWidth;
+    public static double paddlePlayerTwoSpeed;
 }

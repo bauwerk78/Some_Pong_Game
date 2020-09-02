@@ -1,10 +1,9 @@
 package bauwerk78.model;
 
-import bauwerk78.implementer.MainGame;
-import static bauwerk78.settings.StaticFinals.*;
-import static bauwerk78.tools.ElapsedTimeTimer.elapsedTime;
-
 import bauwerk78.settings.GameOptions;
+
+import static bauwerk78.settings.StaticFinals.paddleEdgePadding;
+import static bauwerk78.tools.ElapsedTimeTimer.elapsedTime;
 
 public class Player extends Paddle {
 
