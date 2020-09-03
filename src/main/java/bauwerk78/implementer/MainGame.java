@@ -6,11 +6,13 @@ import bauwerk78.scenes.GameMenu;
 import bauwerk78.settings.GameOptions;
 import bauwerk78.settings.GameVariables;
 import bauwerk78.settings.StaticFinals;
+import bauwerk78.tools.CollidingBox;
 import bauwerk78.tools.CollisionDetection;
 import bauwerk78.tools.Delayer;
 import bauwerk78.tools.ElapsedTimeTimer;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -73,17 +75,54 @@ public class MainGame extends Application {
         userInput.getPlayerInput(sceneMainGame);
 
         if (collisionCheck) {
-            if (collisionDetection.collisionDetection(ball.collidingBox(), player1.collidingBox()) || collisionDetection.collisionDetection(ball.collidingBox(), computerOpponent.collidingBox())
-                    || collisionDetection.collisionDetection(ball.collidingBox(), player2.collidingBox())) {
+            //TODO collision check not working 100% regarding top bottom and edge.
+            Rectangle2D ballCollidingBox = new CollidingBox().collidingBox(ball.getPosX(), ball.getPosY(), ball.getWidth(), ball.getHeight());
+
+            Rectangle2D player1SideCollidingBox = new CollidingBox().collidingBox(player1.getPosX(), player1.getPosY() + StaticFinals.paddleCollisionPadding, player1.getWidth(), player1.getHeight() - StaticFinals.paddleCollisionPadding * 2);
+            Rectangle2D player1UpperCollidingBox = new CollidingBox().collidingBox(player1.getPosX(), player1.getPosY(), player1.getWidth(), StaticFinals.paddleCollisionPadding);
+            Rectangle2D player1LowerCollidingBox = new CollidingBox().collidingBox(player1.getPosX(), player1.getPosY() + player1.getHeight() - StaticFinals.paddleCollisionPadding, player1.getWidth(), StaticFinals.paddleCollisionPadding);
+
+            Rectangle2D player2SideCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY() + StaticFinals.paddleCollisionPadding, player2.getWidth(), player2.getHeight() - StaticFinals.paddleCollisionPadding * 2);
+            Rectangle2D player2UpperCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY(), player2.getWidth(), StaticFinals.paddleCollisionPadding);
+            Rectangle2D player2LowerCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY() + player2.getHeight() - StaticFinals.paddleCollisionPadding, player2.getWidth(), StaticFinals.paddleCollisionPadding);
+
+            Rectangle2D computerSideCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY() + StaticFinals.paddleCollisionPadding, computerOpponent.getWidth(), computerOpponent.getHeight() - StaticFinals.paddleCollisionPadding * 2);
+            Rectangle2D computerUpperCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY(), computerOpponent.getWidth(), StaticFinals.paddleCollisionPadding);
+            Rectangle2D computerLowerCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY() + computerOpponent.getHeight() - StaticFinals.paddleCollisionPadding, computerOpponent.getWidth(), StaticFinals.paddleCollisionPadding);
+
+
+            //Check front side of paddle collisions.
+            if (collisionDetection.isCollided(ballCollidingBox, player1SideCollidingBox) ||
+                    collisionDetection.isCollided(ballCollidingBox, computerSideCollidingBox)
+                    || collisionDetection.isCollided(ballCollidingBox, player2SideCollidingBox)) {
 
                 ball.setGoingRight(!ball.isGoingRight());
                 ball.setSpeedX(ball.getSpeedX() * GameVariables.ballSpeedMultiplier);
                 collisionCheck = false;
-            }
+            } else
+                //Check top of paddle collisions.
+                if (collisionDetection.isCollided(ballCollidingBox, player1UpperCollidingBox) ||
+                        collisionDetection.isCollided(ballCollidingBox, computerUpperCollidingBox) ||
+                        collisionDetection.isCollided(ballCollidingBox, player2UpperCollidingBox)) {
+                    if (!ball.isGoingUp()) {
+                        ball.setGoingUp(true);
+                    }
+                    collisionCheck = false;
+
+                } else
+                    //Check bottom of paddle collisions.
+                    if (collisionDetection.isCollided(ballCollidingBox, player1LowerCollidingBox) ||
+                            collisionDetection.isCollided(ballCollidingBox, computerLowerCollidingBox) ||
+                            collisionDetection.isCollided(ballCollidingBox, player2LowerCollidingBox)) {
+                        if (ball.isGoingUp()) {
+                            ball.setGoingUp(false);
+                        }
+                        collisionCheck = false;
+                    }
         }
         //Makes sure the collision detection does not happen several times in a row as in ball gets stuck to paddle.
         if (!collisionCheck) {
-            collisionCheck = delayerPaddleCollision.delayTimer(0.5);
+            collisionCheck = delayerPaddleCollision.delayTimer(0.2);
         }
 
         if (ball.isBallOutOfBounds() && roundResetTimer) {

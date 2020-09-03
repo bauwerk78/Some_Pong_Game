@@ -81,10 +81,6 @@ public class Ball extends GameObject {
 
     }
 
-    public Rectangle2D collidingBox() {
-        return new Rectangle2D(getPosX(), getPosY(), getWidth(), getHeight());
-    }
-
     public boolean isBallOutOfBounds() {
         return ballOutOfBounds;
     }
@@ -95,5 +91,13 @@ public class Ball extends GameObject {
 
     public void setGoingRight(boolean goingRight) {
         this.goingRight = goingRight;
+    }
+
+    public boolean isGoingUp() {
+        return goingUp;
+    }
+
+    public void setGoingUp(boolean goingUp) {
+        this.goingUp = goingUp;
     }
 }

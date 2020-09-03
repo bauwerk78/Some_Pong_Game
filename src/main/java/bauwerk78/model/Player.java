@@ -1,6 +1,7 @@
 package bauwerk78.model;
 
 import bauwerk78.settings.GameOptions;
+import javafx.geometry.Rectangle2D;
 
 import static bauwerk78.settings.StaticFinals.paddleEdgePadding;
 import static bauwerk78.tools.ElapsedTimeTimer.elapsedTime;
@@ -48,7 +49,5 @@ public class Player extends Paddle {
         }
 
     }
-
-
 
 }

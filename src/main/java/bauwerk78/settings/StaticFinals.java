@@ -27,6 +27,7 @@ public interface StaticFinals {
     double paddleSpeed = 250;
     double paddleWidth = 20;
     double paddleHeight = 80;
+    double paddleCollisionPadding = 2;
     int paddleEdgePadding = 5;
 
 
