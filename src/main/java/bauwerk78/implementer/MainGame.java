@@ -90,7 +90,6 @@ public class MainGame extends Application {
             Rectangle2D computerUpperCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY(), computerOpponent.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
             Rectangle2D computerLowerCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY() + computerOpponent.getHeight() - StaticFinals.paddleTopBottomCollisionBox, computerOpponent.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
 
-
             //Check front side of paddle collisions.
             if (collisionDetection.isCollided(ballCollidingBox, player1SideCollidingBox) ||
                     collisionDetection.isCollided(ballCollidingBox, computerSideCollidingBox)
@@ -167,6 +166,7 @@ public class MainGame extends Application {
 
     public void sceneControl() {
         //TODO include game pause for games played locally.
+        //TODO Spawn game objects like player2 and computer-opponent here instead.
         //If not in menu, start the game.
         if (gameMenu.isStartGame()) {
             if (!stage.getScene().equals(sceneMainGame)) {
