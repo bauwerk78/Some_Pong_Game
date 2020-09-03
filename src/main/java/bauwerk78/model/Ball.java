@@ -14,13 +14,13 @@ public class Ball extends GameObject {
     private boolean goingRight;
     private boolean ballOutOfBounds;
 
-    public Ball(double posX, double posY) {
-        setPosX(posX);
-        setPosY(posY);
+    public Ball() {
         init();
     }
 
     private void init() {
+        setPosX(GameOptions.windowWidth / 2d);
+        setPosY(GameOptions.windowHeight / 2d);
         setSpeedX(150);
         setWidth(15);
         setHeight(15);

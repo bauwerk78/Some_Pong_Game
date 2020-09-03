@@ -39,7 +39,6 @@ public class MainGame extends Application {
     private Ball ball;
     private Player player1;
     private Player player2;
-
     private ComputerOpponent computerOpponent;
 
     private boolean collisionCheck = true;
@@ -60,10 +59,8 @@ public class MainGame extends Application {
 
     public void init() {
         initGraphics();
-        ball = new Ball(GameOptions.windowWidth / 2d, GameOptions.windowHeight / 2d);
+        ball = new Ball();
         player1 = new Player(1);
-        player2 = new Player(2);
-        computerOpponent = new ComputerOpponent();
     }
 
     //TODO implement.
@@ -82,18 +79,24 @@ public class MainGame extends Application {
             Rectangle2D player1UpperCollidingBox = new CollidingBox().collidingBox(player1.getPosX(), player1.getPosY(), player1.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
             Rectangle2D player1LowerCollidingBox = new CollidingBox().collidingBox(player1.getPosX(), player1.getPosY() + player1.getHeight() - StaticFinals.paddleTopBottomCollisionBox, player1.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
 
-            Rectangle2D player2SideCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY() + StaticFinals.paddleTopBottomCollisionBox, player2.getWidth(), player2.getHeight() - StaticFinals.paddleTopBottomCollisionBox * 2);
-            Rectangle2D player2UpperCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY(), player2.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
-            Rectangle2D player2LowerCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY() + player2.getHeight() - StaticFinals.paddleTopBottomCollisionBox, player2.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
+            Rectangle2D opponentSideCollidingBox;
+            Rectangle2D opponentUpperCollidingBox;
+            Rectangle2D opponentLowerCollidingBox;
 
-            Rectangle2D computerSideCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY() + StaticFinals.paddleTopBottomCollisionBox, computerOpponent.getWidth(), computerOpponent.getHeight() - StaticFinals.paddleTopBottomCollisionBox * 2);
-            Rectangle2D computerUpperCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY(), computerOpponent.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
-            Rectangle2D computerLowerCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY() + computerOpponent.getHeight() - StaticFinals.paddleTopBottomCollisionBox, computerOpponent.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
+            if (gameMenu.getNumberOfPlayers() == 1) {
+                opponentSideCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY() + StaticFinals.paddleTopBottomCollisionBox, computerOpponent.getWidth(), computerOpponent.getHeight() - StaticFinals.paddleTopBottomCollisionBox * 2);
+                opponentUpperCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY(), computerOpponent.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
+                opponentLowerCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY() + computerOpponent.getHeight() - StaticFinals.paddleTopBottomCollisionBox, computerOpponent.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
+
+            } else {
+                opponentSideCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY() + StaticFinals.paddleTopBottomCollisionBox, player2.getWidth(), player2.getHeight() - StaticFinals.paddleTopBottomCollisionBox * 2);
+                opponentUpperCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY(), player2.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
+                opponentLowerCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY() + player2.getHeight() - StaticFinals.paddleTopBottomCollisionBox, player2.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
+            }
 
             //Check front side of paddle collisions.
             if (collisionDetection.isCollided(ballCollidingBox, player1SideCollidingBox) ||
-                    collisionDetection.isCollided(ballCollidingBox, computerSideCollidingBox)
-                    || collisionDetection.isCollided(ballCollidingBox, player2SideCollidingBox)) {
+                    collisionDetection.isCollided(ballCollidingBox, opponentSideCollidingBox)) {
 
                 ball.setGoingRight(!ball.isGoingRight());
                 ball.setSpeedX(ball.getSpeedX() * GameVariables.ballSpeedMultiplier);
@@ -101,8 +104,7 @@ public class MainGame extends Application {
             } else
                 //Check top of paddle collisions.
                 if (collisionDetection.isCollided(ballCollidingBox, player1UpperCollidingBox) ||
-                        collisionDetection.isCollided(ballCollidingBox, computerUpperCollidingBox) ||
-                        collisionDetection.isCollided(ballCollidingBox, player2UpperCollidingBox)) {
+                        collisionDetection.isCollided(ballCollidingBox, opponentUpperCollidingBox)) {
                     if (!ball.isGoingUp()) {
                         ball.setGoingUp(true);
                     }
@@ -111,8 +113,7 @@ public class MainGame extends Application {
                 } else
                     //Check bottom of paddle collisions.
                     if (collisionDetection.isCollided(ballCollidingBox, player1LowerCollidingBox) ||
-                            collisionDetection.isCollided(ballCollidingBox, computerLowerCollidingBox) ||
-                            collisionDetection.isCollided(ballCollidingBox, player2LowerCollidingBox)) {
+                            collisionDetection.isCollided(ballCollidingBox, opponentLowerCollidingBox)) {
                         if (ball.isGoingUp()) {
                             ball.setGoingUp(false);
                         }
@@ -172,6 +173,13 @@ public class MainGame extends Application {
             if (!stage.getScene().equals(sceneMainGame)) {
                 stage.setScene(sceneMainGame);
             }
+            if (gameMenu.getNumberOfPlayers() == 1 && computerOpponent == null) {
+                computerOpponent = new ComputerOpponent();
+            }
+            if (gameMenu.getNumberOfPlayers() != 1 && player2 == null) {
+                player2 = new Player(2);
+            }
+
             renderGamePlay();
         }
         //If in game menu selection.
