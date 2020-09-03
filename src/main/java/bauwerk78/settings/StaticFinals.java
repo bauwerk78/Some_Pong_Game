@@ -18,17 +18,19 @@ public interface StaticFinals {
     public static String keyboardSelect = "ENTER";
 
     //Ball settings.
-    double ballOnePlayerSpeed = 150;
-    double ballTwoPlayerSpeed = 200;
+    double ballOnePlayerSpeed = 150; //Starting ball speed for a one player game.
+    double ballTwoPlayerSpeed = 200; //Starting ball speed for a two player game.
     double ballStartPosX = (GameOptions.windowWidth / 2d);
     double ballStartPosY = (GameOptions.windowHeight / 2d);
 
     //Paddle settings.
-    double paddleSpeed = 250;
+    double paddleSpeedPlayer = 250;
+    double paddleSpeedComputer = 150;
     double paddleWidth = 20;
     double paddleHeight = 80;
-    double paddleCollisionPadding = 2;
-    int paddleEdgePadding = 5;
+    double paddleDistanceToWindowSide = 20;
+    double paddleTopBottomCollisionBox = 2; //Height of the top and bottom collision box.
+    int paddleTopBottomPadding = 5; //Top and bottom of window padding.
 
 
 }

@@ -1,9 +1,9 @@
 package bauwerk78.model;
 
 import bauwerk78.settings.GameOptions;
-import javafx.geometry.Rectangle2D;
+import bauwerk78.settings.StaticFinals;
 
-import static bauwerk78.settings.StaticFinals.paddleEdgePadding;
+import static bauwerk78.settings.StaticFinals.paddleTopBottomPadding;
 import static bauwerk78.tools.ElapsedTimeTimer.elapsedTime;
 
 public class Player extends Paddle {
@@ -14,17 +14,22 @@ public class Player extends Paddle {
     //TODO implement action-key.
     private String keyboardActionKey;
 
-    public Player(double posX, double posY, int playerNumber) {
-        super(posX, posY);
+    public Player(int playerNumber) {
         this.playerNumber = playerNumber;
         init();
     }
 
     private void init() {
+        setWidth(StaticFinals.paddleWidth);
+        setHeight(StaticFinals.paddleHeight);
+        setPosY((GameOptions.windowHeight / 2d) - (getHeight() / 2));
+        setSpeedY(StaticFinals.paddleSpeedPlayer);
         if(playerNumber == 1) {
+            setPosX(StaticFinals.paddleDistanceToWindowSide);
             keyboardUp = GameOptions.keyboardOneUp;
             keyboardDown = GameOptions.keyboardOneDown;
         } else {
+            setPosX(GameOptions.windowWidth - StaticFinals.paddleDistanceToWindowSide);
             keyboardUp = GameOptions.keyboardTwoUp;
             keyboardDown = GameOptions.keyboardTwoDown;
         }
@@ -35,16 +40,16 @@ public class Player extends Paddle {
 
         if(UserInput.input.contains(keyboardUp)) {
             setPosY(getPosY() - getSpeedY() * elapsedTime);
-            if(getPosY() <= paddleEdgePadding) {
-                setPosY(paddleEdgePadding);
+            if(getPosY() <= paddleTopBottomPadding) {
+                setPosY(paddleTopBottomPadding);
             }
 
         }
 
         if(UserInput.input.contains(keyboardDown)) {
             setPosY(getPosY() + getSpeedY() * elapsedTime);
-            if(getPosY() + getHeight() >= GameOptions.windowHeight - paddleEdgePadding) {
-                setPosY(GameOptions.windowHeight - getHeight() - paddleEdgePadding);
+            if(getPosY() + getHeight() >= GameOptions.windowHeight - paddleTopBottomPadding) {
+                setPosY(GameOptions.windowHeight - getHeight() - paddleTopBottomPadding);
             }
         }
 

@@ -61,34 +61,29 @@ public class MainGame extends Application {
     public void init() {
         initGraphics();
         ball = new Ball(GameOptions.windowWidth / 2d, GameOptions.windowHeight / 2d);
-        player1 = new Player(20, (GameOptions.windowHeight / 2d), 1);
-        player1.setPosY(player1.getPosY() - player1.getHeight() / 2);
-        player2 = new Player(GameOptions.windowWidth - 20, (GameOptions.windowHeight / 2d), 2);
-        player2.setPosY(player2.getPosY() - player2.getHeight() / 2);
-        player2.setPosX(player2.getPosX() - player2.getWidth());
-        computerOpponent = new ComputerOpponent(GameOptions.windowWidth - 20, (GameOptions.windowHeight / 2d));
-        computerOpponent.setPosX(computerOpponent.getPosX() - computerOpponent.getWidth());
-        computerOpponent.setPosY(computerOpponent.getPosY() - computerOpponent.getHeight() / 2);
+        player1 = new Player(1);
+        player2 = new Player(2);
+        computerOpponent = new ComputerOpponent();
     }
 
-    public void updateGameRound() {
+    public void updateGamePlay() {
         userInput.getPlayerInput(sceneMainGame);
 
         if (collisionCheck) {
             //TODO collision check not working 100% regarding top bottom and edge.
             Rectangle2D ballCollidingBox = new CollidingBox().collidingBox(ball.getPosX(), ball.getPosY(), ball.getWidth(), ball.getHeight());
 
-            Rectangle2D player1SideCollidingBox = new CollidingBox().collidingBox(player1.getPosX(), player1.getPosY() + StaticFinals.paddleCollisionPadding, player1.getWidth(), player1.getHeight() - StaticFinals.paddleCollisionPadding * 2);
-            Rectangle2D player1UpperCollidingBox = new CollidingBox().collidingBox(player1.getPosX(), player1.getPosY(), player1.getWidth(), StaticFinals.paddleCollisionPadding);
-            Rectangle2D player1LowerCollidingBox = new CollidingBox().collidingBox(player1.getPosX(), player1.getPosY() + player1.getHeight() - StaticFinals.paddleCollisionPadding, player1.getWidth(), StaticFinals.paddleCollisionPadding);
+            Rectangle2D player1SideCollidingBox = new CollidingBox().collidingBox(player1.getPosX(), player1.getPosY() + StaticFinals.paddleTopBottomCollisionBox, player1.getWidth(), player1.getHeight() - StaticFinals.paddleTopBottomCollisionBox * 2);
+            Rectangle2D player1UpperCollidingBox = new CollidingBox().collidingBox(player1.getPosX(), player1.getPosY(), player1.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
+            Rectangle2D player1LowerCollidingBox = new CollidingBox().collidingBox(player1.getPosX(), player1.getPosY() + player1.getHeight() - StaticFinals.paddleTopBottomCollisionBox, player1.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
 
-            Rectangle2D player2SideCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY() + StaticFinals.paddleCollisionPadding, player2.getWidth(), player2.getHeight() - StaticFinals.paddleCollisionPadding * 2);
-            Rectangle2D player2UpperCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY(), player2.getWidth(), StaticFinals.paddleCollisionPadding);
-            Rectangle2D player2LowerCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY() + player2.getHeight() - StaticFinals.paddleCollisionPadding, player2.getWidth(), StaticFinals.paddleCollisionPadding);
+            Rectangle2D player2SideCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY() + StaticFinals.paddleTopBottomCollisionBox, player2.getWidth(), player2.getHeight() - StaticFinals.paddleTopBottomCollisionBox * 2);
+            Rectangle2D player2UpperCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY(), player2.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
+            Rectangle2D player2LowerCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY() + player2.getHeight() - StaticFinals.paddleTopBottomCollisionBox, player2.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
 
-            Rectangle2D computerSideCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY() + StaticFinals.paddleCollisionPadding, computerOpponent.getWidth(), computerOpponent.getHeight() - StaticFinals.paddleCollisionPadding * 2);
-            Rectangle2D computerUpperCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY(), computerOpponent.getWidth(), StaticFinals.paddleCollisionPadding);
-            Rectangle2D computerLowerCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY() + computerOpponent.getHeight() - StaticFinals.paddleCollisionPadding, computerOpponent.getWidth(), StaticFinals.paddleCollisionPadding);
+            Rectangle2D computerSideCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY() + StaticFinals.paddleTopBottomCollisionBox, computerOpponent.getWidth(), computerOpponent.getHeight() - StaticFinals.paddleTopBottomCollisionBox * 2);
+            Rectangle2D computerUpperCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY(), computerOpponent.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
+            Rectangle2D computerLowerCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY() + computerOpponent.getHeight() - StaticFinals.paddleTopBottomCollisionBox, computerOpponent.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
 
 
             //Check front side of paddle collisions.
@@ -143,7 +138,8 @@ public class MainGame extends Application {
     }
 
     public void renderGamePlay() {
-        updateGameRound();
+        updateGamePlay();
+
         gc.clearRect(0, 0, GameOptions.windowWidth, GameOptions.windowHeight);
 
         if (!ball.isBallOutOfBounds()) {
