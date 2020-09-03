@@ -50,7 +50,7 @@ public class MainGame extends Application {
         /*init(); triggers by default by the launcher*/
     }
 
-    public void initGraphics() {
+    private void initGraphics() {
         Canvas canvas = new Canvas(GameOptions.windowWidth, GameOptions.windowHeight);
         gc = canvas.getGraphicsContext2D();
 
@@ -64,6 +64,11 @@ public class MainGame extends Application {
         player1 = new Player(1);
         player2 = new Player(2);
         computerOpponent = new ComputerOpponent();
+    }
+
+    //TODO implement.
+    private void resetGamePlay() {
+
     }
 
     public void updateGamePlay() {
@@ -143,24 +148,25 @@ public class MainGame extends Application {
         gc.clearRect(0, 0, GameOptions.windowWidth, GameOptions.windowHeight);
 
         if (!ball.isBallOutOfBounds()) {
-            ball.render(gc);
+            ball.render();
         }
 
         player1.update();
-        player1.render(gc);
+        player1.render();
 
         if (gameMenu.getNumberOfPlayers() == 1) {
             computerOpponent.update(this);
-            computerOpponent.render(gc);
+            computerOpponent.render();
         } else {
             player2.update();
-            player2.render(gc);
+            player2.render();
         }
 
         score.showScore();
     }
 
     public void sceneControl() {
+        //TODO include game pause for games played locally.
         //If not in menu, start the game.
         if (gameMenu.isStartGame()) {
             if (!stage.getScene().equals(sceneMainGame)) {

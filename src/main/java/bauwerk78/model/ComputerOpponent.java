@@ -23,17 +23,17 @@ public class ComputerOpponent extends Paddle {
 
     public void update(MainGame mg) {
         //Going down
-        if(mg.getBallYPosition() + (mg.getBallHeight() / 2) > getPosY() + (getHeight() / 2)) {
+        if (mg.getBallYPosition() + (mg.getBallHeight() / 2) > getPosY() + (getHeight() / 2)) {
             setPosY(getPosY() + getSpeedY() * elapsedTime);
-            if(getPosY() + getHeight() >= GameOptions.windowHeight - paddleTopBottomPadding) {
+            if (getPosY() + getHeight() >= GameOptions.windowHeight - paddleTopBottomPadding) {
                 setPosY(GameOptions.windowHeight - getHeight() - paddleTopBottomPadding);
             }
 
         }
         //Going up
-        if(mg.getBallYPosition() + (mg.getBallHeight() / 2) < getPosY() + (getHeight() / 2)) {
+        if (mg.getBallYPosition() + (mg.getBallHeight() / 2) < getPosY() + (getHeight() / 2)) {
             setPosY(getPosY() - getSpeedY() * elapsedTime);
-            if(getPosY() <= paddleTopBottomPadding) {
+            if (getPosY() <= paddleTopBottomPadding) {
                 setPosY(paddleTopBottomPadding);
             }
         }

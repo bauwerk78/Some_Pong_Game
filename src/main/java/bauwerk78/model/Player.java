@@ -24,7 +24,8 @@ public class Player extends Paddle {
         setHeight(StaticFinals.paddleHeight);
         setPosY((GameOptions.windowHeight / 2d) - (getHeight() / 2));
         setSpeedY(StaticFinals.paddleSpeedPlayer);
-        if(playerNumber == 1) {
+
+        if (playerNumber == 1) {
             setPosX(StaticFinals.paddleDistanceToWindowSide);
             keyboardUp = GameOptions.keyboardOneUp;
             keyboardDown = GameOptions.keyboardOneDown;
@@ -38,17 +39,17 @@ public class Player extends Paddle {
 
     public void update() {
 
-        if(UserInput.input.contains(keyboardUp)) {
+        if (UserInput.input.contains(keyboardUp)) {
             setPosY(getPosY() - getSpeedY() * elapsedTime);
-            if(getPosY() <= paddleTopBottomPadding) {
+            if (getPosY() <= paddleTopBottomPadding) {
                 setPosY(paddleTopBottomPadding);
             }
 
         }
 
-        if(UserInput.input.contains(keyboardDown)) {
+        if (UserInput.input.contains(keyboardDown)) {
             setPosY(getPosY() + getSpeedY() * elapsedTime);
-            if(getPosY() + getHeight() >= GameOptions.windowHeight - paddleTopBottomPadding) {
+            if (getPosY() + getHeight() >= GameOptions.windowHeight - paddleTopBottomPadding) {
                 setPosY(GameOptions.windowHeight - getHeight() - paddleTopBottomPadding);
             }
         }
