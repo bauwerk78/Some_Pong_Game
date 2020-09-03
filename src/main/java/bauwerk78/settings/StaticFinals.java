@@ -22,6 +22,8 @@ public interface StaticFinals {
     double ballTwoPlayerSpeed = 200; //Starting ball speed for a two player game.
     double ballStartPosX = (GameOptions.windowWidth / 2d);
     double ballStartPosY = (GameOptions.windowHeight / 2d);
+    double ballWidth = 15;
+    double ballHeight = 15;
 
     //Paddle settings.
     double paddleSpeedPlayer = 250;

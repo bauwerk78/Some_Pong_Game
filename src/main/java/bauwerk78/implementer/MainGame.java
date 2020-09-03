@@ -59,7 +59,6 @@ public class MainGame extends Application {
 
     public void init() {
         initGraphics();
-        ball = new Ball();
         player1 = new Player(1);
     }
 
@@ -175,9 +174,15 @@ public class MainGame extends Application {
             }
             if (gameMenu.getNumberOfPlayers() == 1 && computerOpponent == null) {
                 computerOpponent = new ComputerOpponent();
+                if(ball == null) {
+                    ball = new Ball(1);
+                }
             }
             if (gameMenu.getNumberOfPlayers() != 1 && player2 == null) {
                 player2 = new Player(2);
+                if(ball == null) {
+                    ball = new Ball(2);
+                }
             }
 
             renderGamePlay();

@@ -2,6 +2,7 @@ package bauwerk78.model;
 
 import bauwerk78.implementer.MainGame;
 import bauwerk78.settings.GameOptions;
+import bauwerk78.settings.StaticFinals;
 import bauwerk78.tools.Randomize;
 import javafx.scene.paint.Color;
 
@@ -13,25 +14,35 @@ public class Ball extends GameObject {
     private boolean goingUp;
     private boolean goingRight;
     private boolean ballOutOfBounds;
+    private final int numberOfPlayers;
 
-    public Ball() {
+    public Ball(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
         init();
     }
 
     private void init() {
-        setPosX(GameOptions.windowWidth / 2d);
-        setPosY(GameOptions.windowHeight / 2d);
-        setSpeedX(150);
-        setWidth(15);
-        setHeight(15);
+        setPosX(StaticFinals.ballStartPosX);
+        setPosY(StaticFinals.ballStartPosY);
+        setWidth(StaticFinals.ballWidth);
+        setHeight(StaticFinals.ballHeight);
+        if(numberOfPlayers == 1) {
+            setSpeedX(StaticFinals.ballOnePlayerSpeed);
+        } else {
+            setSpeedX(StaticFinals.ballTwoPlayerSpeed);
+        }
         goingUp = Randomize.randBoolean();
         goingRight = Randomize.randBoolean();
     }
 
     public void reset() {
-        setPosX(GameOptions.windowWidth / 2d);
-        setPosY(GameOptions.windowHeight / 2d);
-        setSpeedX(150);
+        setPosX(StaticFinals.ballStartPosX);
+        setPosY(StaticFinals.ballStartPosY);
+        if(numberOfPlayers == 1) {
+            setSpeedX(StaticFinals.ballOnePlayerSpeed);
+        } else {
+            setSpeedX(StaticFinals.ballTwoPlayerSpeed);
+        }
         goingUp = Randomize.randBoolean();
         goingRight = Randomize.randBoolean();
         ballOutOfBounds = false;
@@ -68,7 +79,6 @@ public class Ball extends GameObject {
         update();
         MainGame.gc.setFill(Color.WHITE);
         MainGame.gc.fillOval(getPosX(), getPosY(), getWidth(), getHeight());
-
     }
 
     public boolean isBallOutOfBounds() {
