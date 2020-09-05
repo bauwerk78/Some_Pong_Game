@@ -64,7 +64,20 @@ public class MainGame extends Application {
 
     //TODO implement.
     private void resetGamePlay() {
-
+        if(ball != null) {
+            ball = null;
+        }
+        if(player1 != null) {
+            player1 = null;
+        }
+        if(computerOpponent != null) {
+            computerOpponent = null;
+        }
+        if(player2 != null) {
+            player2 = null;
+        }
+        score.resetScore();
+        player1 = new Player(1);
     }
 
     public void updateGamePlay() {
