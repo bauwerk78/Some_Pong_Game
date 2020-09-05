@@ -59,7 +59,6 @@ public class MainGame extends Application {
 
     public void init() {
         initGraphics();
-        //player1 = new Player(1);
     }
 
     //TODO implement.
@@ -151,14 +150,6 @@ public class MainGame extends Application {
                 gameMenu.setStartGame(false);
                 stage.setScene(gameMenu.getSceneMenu());
             }
-/*            if(score.getScoreP1() >= StaticFinals.scoreToEndGame && score.getScoreP1() - score.getScoreP2() == 2) {
-                gameMenu.setStartGame(false);
-                stage.setScene(gameMenu.getSceneMenu());
-            } else
-                if(score.getScoreP2() >= StaticFinals.scoreToEndGame && score.getScoreP2() - score.getScoreP1() == 2) {
-                    gameMenu.setStartGame(false);
-                    stage.setScene(gameMenu.getSceneMenu());
-                }*/
         }
 
         if (!roundResetTimer) {
