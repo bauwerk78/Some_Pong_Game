@@ -78,6 +78,7 @@ public class MainGame extends Application {
         }
         score.resetScore();
         player1 = new Player(1);
+        roundResetTimer = true;
     }
 
     public void updateGamePlay() {
@@ -144,6 +145,15 @@ public class MainGame extends Application {
             } else {
                 score.setScoreP2(score.getScoreP2() + 1);
             }
+            //TODO add an ending scene for games.
+            if(score.getScoreP1() >= StaticFinals.scoreToEndGame && score.getScoreP1() - score.getScoreP2() == 2) {
+                gameMenu.setStartGame(false);
+                stage.setScene(gameMenu.getSceneMenu());
+            } else
+                if(score.getScoreP2() >= StaticFinals.scoreToEndGame && score.getScoreP2() - score.getScoreP1() == 2) {
+                    gameMenu.setStartGame(false);
+                    stage.setScene(gameMenu.getSceneMenu());
+                }
         }
 
         if (!roundResetTimer) {

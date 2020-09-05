@@ -34,5 +34,6 @@ public interface StaticFinals {
     double paddleTopBottomCollisionBox = 2; //Height of the top and bottom collision box.
     int paddleTopBottomPadding = 5; //Top and bottom of window padding.
 
-
+    //Score settings.
+    int scoreToEndGame = 3;
 }

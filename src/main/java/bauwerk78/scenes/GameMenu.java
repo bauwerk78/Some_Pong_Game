@@ -157,5 +157,7 @@ public class GameMenu {
         return startGame;
     }
 
-
+    public void setStartGame(boolean startGame) {
+        this.startGame = startGame;
+    }
 }
