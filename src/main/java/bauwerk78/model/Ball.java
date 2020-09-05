@@ -16,6 +16,7 @@ public class Ball extends GameObject {
     private boolean ballOutOfBounds;
     private final int numberOfPlayers;
 
+    //Different ball starting speed depending on if it's a one player game or a two player game.
     public Ball(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
         init();

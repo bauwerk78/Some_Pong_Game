@@ -166,7 +166,6 @@ public class MainGame extends Application {
 
     public void sceneControl() {
         //TODO include game pause for games played locally.
-        //TODO Spawn game objects like player2 and computer-opponent here instead.
         //If not in menu, start the game.
         if (gameMenu.isStartGame()) {
             if (!stage.getScene().equals(sceneMainGame)) {
@@ -217,7 +216,6 @@ public class MainGame extends Application {
         }.start();
 
         MainGame.stage.show();
-
     }
 
     public double getBallYPosition() {
