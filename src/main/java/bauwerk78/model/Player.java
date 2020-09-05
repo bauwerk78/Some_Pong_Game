@@ -30,7 +30,7 @@ public class Player extends Paddle {
             keyboardUp = GameOptions.keyboardOneUp;
             keyboardDown = GameOptions.keyboardOneDown;
         } else {
-            setPosX(GameOptions.windowWidth - StaticFinals.paddleDistanceToWindowSide);
+            setPosX(GameOptions.windowWidth - (StaticFinals.paddleDistanceToWindowSide + StaticFinals.paddleWidth));
             keyboardUp = GameOptions.keyboardTwoUp;
             keyboardDown = GameOptions.keyboardTwoDown;
         }

@@ -59,7 +59,7 @@ public class MainGame extends Application {
 
     public void init() {
         initGraphics();
-        player1 = new Player(1);
+        //player1 = new Player(1);
     }
 
     //TODO implement.
@@ -181,7 +181,9 @@ public class MainGame extends Application {
         //TODO include game pause for games played locally.
         //If not in menu, start the game.
         if (gameMenu.isStartGame()) {
+
             if (!stage.getScene().equals(sceneMainGame)) {
+                resetGamePlay();
                 stage.setScene(sceneMainGame);
             }
             if (gameMenu.getNumberOfPlayers() == 1 && computerOpponent == null) {

@@ -16,7 +16,7 @@ public class ComputerOpponent extends Paddle {
         setWidth(StaticFinals.paddleWidth);
         setHeight(StaticFinals.paddleHeight);
         setPosY((GameOptions.windowHeight / 2d) - (getHeight() / 2));
-        setPosX(GameOptions.windowWidth - StaticFinals.paddleDistanceToWindowSide);
+        setPosX(GameOptions.windowWidth - (StaticFinals.paddleDistanceToWindowSide + StaticFinals.paddleWidth));
         setSpeedY(StaticFinals.paddleSpeedComputer);
     }
 
