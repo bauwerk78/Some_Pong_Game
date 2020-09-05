@@ -64,16 +64,16 @@ public class MainGame extends Application {
 
     //TODO implement.
     private void resetGamePlay() {
-        if(ball != null) {
+        if (ball != null) {
             ball = null;
         }
-        if(player1 != null) {
+        if (player1 != null) {
             player1 = null;
         }
-        if(computerOpponent != null) {
+        if (computerOpponent != null) {
             computerOpponent = null;
         }
-        if(player2 != null) {
+        if (player2 != null) {
             player2 = null;
         }
         score.resetScore();
@@ -146,14 +146,19 @@ public class MainGame extends Application {
                 score.setScoreP2(score.getScoreP2() + 1);
             }
             //TODO add an ending scene for games.
-            if(score.getScoreP1() >= StaticFinals.scoreToEndGame && score.getScoreP1() - score.getScoreP2() == 2) {
+            if ((score.getScoreP1() >= StaticFinals.scoreToEndGame && score.getScoreP1() - score.getScoreP2() >= 2) |
+                    (score.getScoreP2() >= StaticFinals.scoreToEndGame && score.getScoreP2() - score.getScoreP1() >= 2)) {
+                gameMenu.setStartGame(false);
+                stage.setScene(gameMenu.getSceneMenu());
+            }
+/*            if(score.getScoreP1() >= StaticFinals.scoreToEndGame && score.getScoreP1() - score.getScoreP2() == 2) {
                 gameMenu.setStartGame(false);
                 stage.setScene(gameMenu.getSceneMenu());
             } else
                 if(score.getScoreP2() >= StaticFinals.scoreToEndGame && score.getScoreP2() - score.getScoreP1() == 2) {
                     gameMenu.setStartGame(false);
                     stage.setScene(gameMenu.getSceneMenu());
-                }
+                }*/
         }
 
         if (!roundResetTimer) {
@@ -198,13 +203,13 @@ public class MainGame extends Application {
             }
             if (gameMenu.getNumberOfPlayers() == 1 && computerOpponent == null) {
                 computerOpponent = new ComputerOpponent();
-                if(ball == null) {
+                if (ball == null) {
                     ball = new Ball(1);
                 }
             }
             if (gameMenu.getNumberOfPlayers() != 1 && player2 == null) {
                 player2 = new Player(2);
-                if(ball == null) {
+                if (ball == null) {
                     ball = new Ball(2);
                 }
             }
