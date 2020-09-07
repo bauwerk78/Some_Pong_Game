@@ -5,8 +5,8 @@ public class GameOptions {
     /* Variables that can be adjusted via options. */
 
     //Window related settings.
-    public static int windowWidth = 800;
-    public static int windowHeight = 600;
+    public static double windowWidth = 800;
+    public static double windowHeight = 600;
 
     //Game control settings.
     //TODO implement action-keys functionality.
@@ -20,5 +20,8 @@ public class GameOptions {
     public static String keyboardTwoDown = "DOWN";
     public static String keyboardTwoActionKey = "LEFT";
 
-
+    //Player name.
+    public static String playerOneName = "P1";
+    public static String playerTwoName = "P2";
+    public static String playerComputerName = "Computer";
 }

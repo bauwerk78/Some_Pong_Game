@@ -3,10 +3,12 @@ package bauwerk78.scenes;
 import bauwerk78.model.UserInput;
 import bauwerk78.settings.GameOptions;
 import bauwerk78.settings.StaticFinals;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -53,13 +55,18 @@ public class GameMenu {
         imageViewsSelection[4] = new ImageView(imageExitGame);
 
         VBox verticalBox = new VBox(imageViewMenu, imageViewsSelection[0], imageViewsSelection[1], imageViewsSelection[2], imageViewsSelection[3], imageViewsSelection[4]);
-        verticalBox.setPrefSize(150, 125);
-        verticalBox.relocate(325, 125);
+        verticalBox.setAlignment(Pos.TOP_CENTER);
         verticalBox.setVisible(true);
+
+        HBox horizontalBox = new HBox();
+        horizontalBox.setPrefSize(GameOptions.windowWidth, GameOptions.windowHeight - 125);
+        horizontalBox.setAlignment(Pos.CENTER);
+        horizontalBox.relocate(0, 125);
+        horizontalBox.getChildren().add(verticalBox);
 
         effectGlow.setLevel(1);
         imageViewMenu.setEffect(effectGlowMenu);
-        sceneMenu = new Scene(verticalBox, GameOptions.windowWidth, GameOptions.windowHeight);
+        sceneMenu = new Scene(horizontalBox, GameOptions.windowWidth, GameOptions.windowHeight);
         sceneMenu.setFill(Color.BLACK);
     }
 

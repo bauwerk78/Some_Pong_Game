@@ -35,5 +35,6 @@ public interface StaticFinals {
     int paddleTopBottomPadding = 5; //Top and bottom of window padding.
 
     //Score settings.
-    int scoreToEndGame = 3;
+    int scoreToEndGame = 3; //Winning score, winner needs to win by two points though so this number can climb higher.
+
 }

@@ -61,7 +61,6 @@ public class MainGame extends Application {
         initGraphics();
     }
 
-    //TODO implement.
     private void resetGamePlay() {
         if (ball != null) {
             ball = null;
@@ -145,10 +144,11 @@ public class MainGame extends Application {
                 score.setScoreP2(score.getScoreP2() + 1);
             }
             //TODO add an ending scene for games.
+            //Checking if either player has won, need to win by a score of two above the other player.
             if ((score.getScoreP1() >= StaticFinals.scoreToEndGame && score.getScoreP1() - score.getScoreP2() >= 2) |
                     (score.getScoreP2() >= StaticFinals.scoreToEndGame && score.getScoreP2() - score.getScoreP1() >= 2)) {
                 gameMenu.setStartGame(false);
-                stage.setScene(gameMenu.getSceneMenu());
+                roundResetTimer = true;
             }
         }
 
@@ -187,7 +187,6 @@ public class MainGame extends Application {
         //TODO include game pause for games played locally.
         //If not in menu, start the game.
         if (gameMenu.isStartGame()) {
-
             if (!stage.getScene().equals(sceneMainGame)) {
                 resetGamePlay();
                 stage.setScene(sceneMainGame);
@@ -204,7 +203,6 @@ public class MainGame extends Application {
                     ball = new Ball(2);
                 }
             }
-
             renderGamePlay();
         }
         //If in game menu selection.
@@ -216,8 +214,7 @@ public class MainGame extends Application {
         }
 
     }
-
-
+    
     @Override
     public void start(Stage stage) {
         MainGame.stage = stage;
