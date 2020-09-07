@@ -13,8 +13,8 @@ public class Score {
     public void showScore() {
         MainGame.gc.setFont(GameVariables.scoreFont);
         MainGame.gc.setFill(Color.WHITE);
-        String scoreP1Text = "P1: " + scoreP1;
-        String scoreP2Text = "P2: " + scoreP2;
+        String scoreP1Text = GameOptions.playerOneName + " " + scoreP1;
+        String scoreP2Text = GameOptions.playerTwoName + " " + scoreP2;
         MainGame.gc.fillText(scoreP1Text, GameOptions.windowWidth / 2d - (GameOptions.windowWidth / 4d), 30);
         MainGame.gc.fillText(scoreP2Text, GameOptions.windowWidth / 2d + (GameOptions.windowWidth / 4d) - (GameVariables.scoreFontSize * scoreP2Text.length()) / 2d, 30);
     }
