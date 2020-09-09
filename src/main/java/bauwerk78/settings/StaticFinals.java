@@ -37,4 +37,32 @@ public interface StaticFinals {
     //Score settings.
     int scoreToEndGame = 3; //Winning score, winner needs to win by two points though so this number can climb higher.
 
+    //Menu settings.
+    //Main menu.
+    int mainMenuSelections = 5;
+    String mainMenuHeader = "MAIN MENU";
+    String mainMenuOnePlayer = "1 Player";
+    String mainMenuTwoPlayer = "2 Player";
+    String mainMenuOptions = "Options";
+    String mainMenuPlayViaNetwork = "Play Via Network";
+    String mainMenuExitGame = "Exit Game";
+
+    //Options menu.
+    int optionsMenuSelections = 4;
+    String optionsMenuHeader = "OPTIONS";
+    String optionsMenuResolution = "Resolution";
+    String optionsMenuPlayerName = "Player Name";
+    String optionsMenuControls = "Controls";
+    String optionsMenuGoBack = "Go Back";
+
+    //Resolution menu.
+    int resolutionMenuSelections = 4;
+    String resolutionMenuHeader = "RESOLUTION";
+    String resolutionMenuOptionOne = "1024x768";
+    String resolutionMenuOptionTwo = "800x600";
+    String resolutionMenuOptionThree = "600x400";
+    String resolutionMenuGoBack = "Go Back";
+
+    //Player name menu.
+
 }

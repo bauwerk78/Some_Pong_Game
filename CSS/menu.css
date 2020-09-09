@@ -1,0 +1,12 @@
+
+
+#verticalBoxArray > Text {
+            -fx-fill: white;
+            -fx-font: 19px "SansSerif";
+}
+
+#menu-header {
+	-fx-font: bold 38px "SansSerif";
+
+}
+

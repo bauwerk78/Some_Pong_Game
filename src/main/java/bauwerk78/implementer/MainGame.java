@@ -3,6 +3,7 @@ package bauwerk78.implementer;
 
 import bauwerk78.model.*;
 import bauwerk78.scenes.GameMenu;
+import bauwerk78.scenes.MainMenu;
 import bauwerk78.settings.GameOptions;
 import bauwerk78.settings.GameVariables;
 import bauwerk78.settings.StaticFinals;
@@ -19,6 +20,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import sun.applet.Main;
 
 
 public class MainGame extends Application {
@@ -34,6 +36,7 @@ public class MainGame extends Application {
     private final CollisionDetection collisionDetection = new CollisionDetection();
     private final UserInput userInput = new UserInput();
     private final GameMenu gameMenu = new GameMenu();
+    private final MainMenu mainMenu = new MainMenu();
     private final Score score = new Score();
 
     private Ball ball;
@@ -212,9 +215,16 @@ public class MainGame extends Application {
             }
             gameMenu.updateMenu();
         }
+/*        //Temptest
+        if (!mainMenu.isStartGame()) {
+            if (!stage.getScene().equals(mainMenu.getSceneMenu())) {
+                stage.setScene(mainMenu.getSceneMenu());
+            }
+            mainMenu.updateMenu();
+        }*/
 
     }
-    
+
     @Override
     public void start(Stage stage) {
         MainGame.stage = stage;

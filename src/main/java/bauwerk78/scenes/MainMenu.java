@@ -13,9 +13,9 @@ import javafx.scene.text.Text;
 
 import java.util.List;
 
-public class GameMenu {
+public class MainMenu {
 
-    private Text[] textSelection = new Text[5];
+    private final Text[] textSelection = new Text[5];
 
     private Scene sceneMenu;
 
@@ -30,15 +30,15 @@ public class GameMenu {
     private int numberOfPlayers;
 
     private boolean startGame;
-    private boolean mainMenu = true;
 
 
-    public GameMenu() {
+    public MainMenu() {
         init();
     }
 
     private void init() {
 
+        //Testing Text instead of images.
         Text textMenuHeader = new Text(StaticFinals.mainMenuHeader);
         textMenuHeader.setId("menu-header");
 
@@ -50,6 +50,7 @@ public class GameMenu {
 
         VBox verticalBox = new VBox(textMenuHeader, textSelection[0], textSelection[1], textSelection[2], textSelection[3], textSelection[4]);
         verticalBox.setAlignment(Pos.TOP_CENTER);
+        verticalBox.setVisible(true);
         verticalBox.setId("verticalBoxArray");
         verticalBox.getStylesheets().add("file:CSS/menu.css");
 
@@ -121,6 +122,7 @@ public class GameMenu {
                 menuInput.remove(StaticFinals.keyboardSelect);
                 startGame = true;
             }
+
             if (selectedItem == 1) {
                 numberOfPlayers = 2;
                 menuInput.remove(StaticFinals.keyboardSelect);
