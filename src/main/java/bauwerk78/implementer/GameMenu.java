@@ -1,8 +1,8 @@
-package bauwerk78.scenes;
+package bauwerk78.implementer;
 
 import bauwerk78.model.UserInput;
 import bauwerk78.settings.GameOptions;
-import bauwerk78.settings.StaticFinals;
+import bauwerk78.settings.GameVariables;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.effect.Glow;
@@ -13,9 +13,9 @@ import javafx.scene.text.Text;
 
 import java.util.List;
 
-public class MainMenu {
+public class GameMenu {
 
-    private final Text[] textSelection = new Text[5];
+    private Text[] textSelection = new Text[5];
 
     private Scene sceneMenu;
 
@@ -30,27 +30,26 @@ public class MainMenu {
     private int numberOfPlayers;
 
     private boolean startGame;
+    private boolean mainMenu = true;
 
 
-    public MainMenu() {
+    public GameMenu() {
         init();
     }
 
     private void init() {
 
-        //Testing Text instead of images.
-        Text textMenuHeader = new Text(StaticFinals.mainMenuHeader);
+        Text textMenuHeader = new Text(GameVariables.mainMenuHeader);
         textMenuHeader.setId("menu-header");
 
-        textSelection[0] = new Text(StaticFinals.mainMenuOnePlayer);
-        textSelection[1] = new Text(StaticFinals.mainMenuTwoPlayer);
-        textSelection[2] = new Text(StaticFinals.mainMenuOptions);
-        textSelection[3] = new Text(StaticFinals.mainMenuPlayViaNetwork);
-        textSelection[4] = new Text(StaticFinals.mainMenuExitGame);
+        textSelection[0] = new Text(GameVariables.mainMenu0);
+        textSelection[1] = new Text(GameVariables.mainMenu1);
+        textSelection[2] = new Text(GameVariables.mainMenu2);
+        textSelection[3] = new Text(GameVariables.mainMenu3);
+        textSelection[4] = new Text(GameVariables.mainMenu4);
 
         VBox verticalBox = new VBox(textMenuHeader, textSelection[0], textSelection[1], textSelection[2], textSelection[3], textSelection[4]);
         verticalBox.setAlignment(Pos.TOP_CENTER);
-        verticalBox.setVisible(true);
         verticalBox.setId("verticalBoxArray");
         verticalBox.getStylesheets().add("file:CSS/menu.css");
 
@@ -89,17 +88,17 @@ public class MainMenu {
         pulsingGlowMenu();
         effectGlowMenu.setLevel(glowLevel);
 
-        if (menuInput.contains(StaticFinals.keyboardUp)) {
+        if (menuInput.contains(GameVariables.keyboardUp)) {
             selectedItem--;
-            menuInput.remove(StaticFinals.keyboardUp);
+            menuInput.remove(GameVariables.keyboardUp);
             if (selectedItem < 0) {
                 selectedItem = 0;
             }
         }
 
-        if (menuInput.contains(StaticFinals.keyboardDown)) {
+        if (menuInput.contains(GameVariables.keyboardDown)) {
             selectedItem++;
-            menuInput.remove(StaticFinals.keyboardDown);
+            menuInput.remove(GameVariables.keyboardDown);
             if (selectedItem > textSelection.length - 1) {
                 selectedItem = textSelection.length - 1;
             }
@@ -116,27 +115,26 @@ public class MainMenu {
             }
         }
 
-        if (menuInput.contains(StaticFinals.keyboardSelect)) {
+        if (menuInput.contains(GameVariables.keyboardSelect)) {
             if (selectedItem == 0) {
                 numberOfPlayers = 1;
-                menuInput.remove(StaticFinals.keyboardSelect);
+                menuInput.remove(GameVariables.keyboardSelect);
                 startGame = true;
             }
-
             if (selectedItem == 1) {
                 numberOfPlayers = 2;
-                menuInput.remove(StaticFinals.keyboardSelect);
+                menuInput.remove(GameVariables.keyboardSelect);
                 startGame = true;
             }
             //TODO
             if (selectedItem == 2) {
                 System.out.println("Options menu, not integrated yet.");
-                menuInput.remove(StaticFinals.keyboardSelect);
+                menuInput.remove(GameVariables.keyboardSelect);
             }
             //TODO
             if (selectedItem == 3) {
                 System.out.println("Network gameplay, not integrated yet.");
-                menuInput.remove(StaticFinals.keyboardSelect);
+                menuInput.remove(GameVariables.keyboardSelect);
             }
 
             if (selectedItem == 4) {

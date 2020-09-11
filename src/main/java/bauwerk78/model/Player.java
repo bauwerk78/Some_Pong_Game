@@ -1,9 +1,9 @@
 package bauwerk78.model;
 
 import bauwerk78.settings.GameOptions;
-import bauwerk78.settings.StaticFinals;
+import bauwerk78.settings.GameVariables;
 
-import static bauwerk78.settings.StaticFinals.paddleTopBottomPadding;
+import static bauwerk78.settings.GameVariables.paddleTopBottomPadding;
 import static bauwerk78.tools.ElapsedTimeTimer.elapsedTime;
 
 public class Player extends Paddle {
@@ -20,17 +20,17 @@ public class Player extends Paddle {
     }
 
     private void init() {
-        setWidth(StaticFinals.paddleWidth);
-        setHeight(StaticFinals.paddleHeight);
+        setWidth(GameVariables.paddleWidth);
+        setHeight(GameVariables.paddleHeight);
         setPosY((GameOptions.windowHeight / 2d) - (getHeight() / 2));
-        setSpeedY(StaticFinals.paddleSpeedPlayer);
+        setSpeedY(GameVariables.paddleSpeedPlayer);
 
         if (playerNumber == 1) {
-            setPosX(StaticFinals.paddleDistanceToWindowSide);
+            setPosX(GameVariables.paddleDistanceToWindowSide);
             keyboardUp = GameOptions.keyboardOneUp;
             keyboardDown = GameOptions.keyboardOneDown;
         } else {
-            setPosX(GameOptions.windowWidth - (StaticFinals.paddleDistanceToWindowSide + StaticFinals.paddleWidth));
+            setPosX(GameOptions.windowWidth - (GameVariables.paddleDistanceToWindowSide + GameVariables.paddleWidth));
             keyboardUp = GameOptions.keyboardTwoUp;
             keyboardDown = GameOptions.keyboardTwoDown;
         }

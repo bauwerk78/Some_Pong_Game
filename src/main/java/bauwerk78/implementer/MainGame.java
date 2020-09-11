@@ -2,11 +2,8 @@ package bauwerk78.implementer;
 
 
 import bauwerk78.model.*;
-import bauwerk78.scenes.GameMenu;
-import bauwerk78.scenes.MainMenu;
 import bauwerk78.settings.GameOptions;
 import bauwerk78.settings.GameVariables;
-import bauwerk78.settings.StaticFinals;
 import bauwerk78.tools.CollidingBox;
 import bauwerk78.tools.CollisionDetection;
 import bauwerk78.tools.Delayer;
@@ -20,7 +17,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import sun.applet.Main;
 
 
 public class MainGame extends Application {
@@ -36,7 +32,6 @@ public class MainGame extends Application {
     private final CollisionDetection collisionDetection = new CollisionDetection();
     private final UserInput userInput = new UserInput();
     private final GameMenu gameMenu = new GameMenu();
-    private final MainMenu mainMenu = new MainMenu();
     private final Score score = new Score();
 
     private Ball ball;
@@ -89,23 +84,23 @@ public class MainGame extends Application {
             //TODO collision check not working 100% regarding top bottom and edge.
             Rectangle2D ballCollidingBox = new CollidingBox().collidingBox(ball.getPosX(), ball.getPosY(), ball.getWidth(), ball.getHeight());
 
-            Rectangle2D player1SideCollidingBox = new CollidingBox().collidingBox(player1.getPosX(), player1.getPosY() + StaticFinals.paddleTopBottomCollisionBox, player1.getWidth(), player1.getHeight() - StaticFinals.paddleTopBottomCollisionBox * 2);
-            Rectangle2D player1UpperCollidingBox = new CollidingBox().collidingBox(player1.getPosX(), player1.getPosY(), player1.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
-            Rectangle2D player1LowerCollidingBox = new CollidingBox().collidingBox(player1.getPosX(), player1.getPosY() + player1.getHeight() - StaticFinals.paddleTopBottomCollisionBox, player1.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
+            Rectangle2D player1SideCollidingBox = new CollidingBox().collidingBox(player1.getPosX(), player1.getPosY() + GameVariables.paddleTopBottomCollisionBox, player1.getWidth(), player1.getHeight() - GameVariables.paddleTopBottomCollisionBox * 2);
+            Rectangle2D player1UpperCollidingBox = new CollidingBox().collidingBox(player1.getPosX(), player1.getPosY(), player1.getWidth(), GameVariables.paddleTopBottomCollisionBox);
+            Rectangle2D player1LowerCollidingBox = new CollidingBox().collidingBox(player1.getPosX(), player1.getPosY() + player1.getHeight() - GameVariables.paddleTopBottomCollisionBox, player1.getWidth(), GameVariables.paddleTopBottomCollisionBox);
 
             Rectangle2D opponentSideCollidingBox;
             Rectangle2D opponentUpperCollidingBox;
             Rectangle2D opponentLowerCollidingBox;
 
             if (gameMenu.getNumberOfPlayers() == 1) {
-                opponentSideCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY() + StaticFinals.paddleTopBottomCollisionBox, computerOpponent.getWidth(), computerOpponent.getHeight() - StaticFinals.paddleTopBottomCollisionBox * 2);
-                opponentUpperCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY(), computerOpponent.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
-                opponentLowerCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY() + computerOpponent.getHeight() - StaticFinals.paddleTopBottomCollisionBox, computerOpponent.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
+                opponentSideCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY() + GameVariables.paddleTopBottomCollisionBox, computerOpponent.getWidth(), computerOpponent.getHeight() - GameVariables.paddleTopBottomCollisionBox * 2);
+                opponentUpperCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY(), computerOpponent.getWidth(), GameVariables.paddleTopBottomCollisionBox);
+                opponentLowerCollidingBox = new CollidingBox().collidingBox(computerOpponent.getPosX(), computerOpponent.getPosY() + computerOpponent.getHeight() - GameVariables.paddleTopBottomCollisionBox, computerOpponent.getWidth(), GameVariables.paddleTopBottomCollisionBox);
 
             } else {
-                opponentSideCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY() + StaticFinals.paddleTopBottomCollisionBox, player2.getWidth(), player2.getHeight() - StaticFinals.paddleTopBottomCollisionBox * 2);
-                opponentUpperCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY(), player2.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
-                opponentLowerCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY() + player2.getHeight() - StaticFinals.paddleTopBottomCollisionBox, player2.getWidth(), StaticFinals.paddleTopBottomCollisionBox);
+                opponentSideCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY() + GameVariables.paddleTopBottomCollisionBox, player2.getWidth(), player2.getHeight() - GameVariables.paddleTopBottomCollisionBox * 2);
+                opponentUpperCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY(), player2.getWidth(), GameVariables.paddleTopBottomCollisionBox);
+                opponentLowerCollidingBox = new CollidingBox().collidingBox(player2.getPosX(), player2.getPosY() + player2.getHeight() - GameVariables.paddleTopBottomCollisionBox, player2.getWidth(), GameVariables.paddleTopBottomCollisionBox);
             }
 
             //Check front side of paddle collisions.
@@ -148,8 +143,8 @@ public class MainGame extends Application {
             }
             //TODO add an ending scene for games.
             //Checking if either player has won, need to win by a score of two above the other player.
-            if ((score.getScoreP1() >= StaticFinals.scoreToEndGame && score.getScoreP1() - score.getScoreP2() >= 2) |
-                    (score.getScoreP2() >= StaticFinals.scoreToEndGame && score.getScoreP2() - score.getScoreP1() >= 2)) {
+            if ((score.getScoreP1() >= GameVariables.scoreToEndGame && score.getScoreP1() - score.getScoreP2() >= 2) |
+                    (score.getScoreP2() >= GameVariables.scoreToEndGame && score.getScoreP2() - score.getScoreP1() >= 2)) {
                 gameMenu.setStartGame(false);
                 roundResetTimer = true;
             }
@@ -215,20 +210,12 @@ public class MainGame extends Application {
             }
             gameMenu.updateMenu();
         }
-/*        //Temptest
-        if (!mainMenu.isStartGame()) {
-            if (!stage.getScene().equals(mainMenu.getSceneMenu())) {
-                stage.setScene(mainMenu.getSceneMenu());
-            }
-            mainMenu.updateMenu();
-        }*/
-
     }
 
     @Override
     public void start(Stage stage) {
         MainGame.stage = stage;
-        MainGame.stage.setTitle(StaticFinals.windowGameTitle);
+        MainGame.stage.setTitle(GameVariables.windowGameTitle);
 
         MainGame.stage.setScene(gameMenu.getSceneMenu());
 
