@@ -15,18 +15,19 @@ import java.util.List;
 
 public class GameMenu {
 
-    private Text[] textSelection = new Text[5];
+    private Text[] textArray;
+    private final HBox horizontalBox = new HBox();
 
     private Scene sceneMenu;
 
     private final UserInput userInput = new UserInput();
 
-    private final Glow effectGlow = new Glow();
-    private final Glow effectGlowMenu = new Glow();
+    private final Glow effectGlowSelection = new Glow();
+    private final Glow effectGlowHeader = new Glow();
     private double glowLevel;
     private boolean glowLevelGoingUp = true;
 
-    private int selectedItem = 0;
+    private int selectedItem = 1;
     private int numberOfPlayers;
 
     private boolean startGame;
@@ -38,29 +39,21 @@ public class GameMenu {
     }
 
     private void init() {
+        textArray = GameVariables.getTextArray(GameVariables.mainMenu);
 
-        Text textMenuHeader = new Text(GameVariables.mainMenuHeader);
-        textMenuHeader.setId("menu-header");
+        VBox verticalBox = new VBox(textArray);
 
-        textSelection[0] = new Text(GameVariables.mainMenu0);
-        textSelection[1] = new Text(GameVariables.mainMenu1);
-        textSelection[2] = new Text(GameVariables.mainMenu2);
-        textSelection[3] = new Text(GameVariables.mainMenu3);
-        textSelection[4] = new Text(GameVariables.mainMenu4);
-
-        VBox verticalBox = new VBox(textMenuHeader, textSelection[0], textSelection[1], textSelection[2], textSelection[3], textSelection[4]);
         verticalBox.setAlignment(Pos.TOP_CENTER);
         verticalBox.setId("verticalBoxArray");
         verticalBox.getStylesheets().add("file:CSS/menu.css");
 
-        HBox horizontalBox = new HBox();
         horizontalBox.setPrefSize(GameOptions.windowWidth, GameOptions.windowHeight - 125);
         horizontalBox.setAlignment(Pos.CENTER);
         horizontalBox.relocate(0, 125);
         horizontalBox.getChildren().add(verticalBox);
 
-        effectGlow.setLevel(1);
-        textMenuHeader.setEffect(effectGlowMenu);
+        effectGlowSelection.setLevel(1);
+        textArray[0].setEffect(effectGlowHeader);
         sceneMenu = new Scene(horizontalBox, GameOptions.windowWidth, GameOptions.windowHeight);
         sceneMenu.setFill(Color.BLACK);
     }
@@ -86,58 +79,58 @@ public class GameMenu {
         List<String> menuInput = userInput.getInputList();
 
         pulsingGlowMenu();
-        effectGlowMenu.setLevel(glowLevel);
+        effectGlowHeader.setLevel(glowLevel);
 
         if (menuInput.contains(GameVariables.keyboardUp)) {
             selectedItem--;
             menuInput.remove(GameVariables.keyboardUp);
-            if (selectedItem < 0) {
-                selectedItem = 0;
+            if (selectedItem < 1) {
+                selectedItem = 1;
             }
         }
 
         if (menuInput.contains(GameVariables.keyboardDown)) {
             selectedItem++;
             menuInput.remove(GameVariables.keyboardDown);
-            if (selectedItem > textSelection.length - 1) {
-                selectedItem = textSelection.length - 1;
+            if (selectedItem > textArray.length - 1) {
+                selectedItem = textArray.length - 1;
             }
         }
 
         //Remove glow effect and add to the correct selection.
-        for (int i = 0; i < textSelection.length; i++) {
+        for (int i = 1; i < textArray.length; i++) {
             if (i != selectedItem) {
-                textSelection[i].setEffect(null);
+                textArray[i].setEffect(null);
             } else {
-                if (textSelection[i].getEffect() == null) {
-                    textSelection[i].setEffect(effectGlow);
+                if (textArray[i].getEffect() == null) {
+                    textArray[i].setEffect(effectGlowSelection);
                 }
             }
         }
 
         if (menuInput.contains(GameVariables.keyboardSelect)) {
-            if (selectedItem == 0) {
+            if (selectedItem == 1) {
                 numberOfPlayers = 1;
                 menuInput.remove(GameVariables.keyboardSelect);
                 startGame = true;
             }
-            if (selectedItem == 1) {
+            if (selectedItem == 2) {
                 numberOfPlayers = 2;
                 menuInput.remove(GameVariables.keyboardSelect);
                 startGame = true;
             }
             //TODO
-            if (selectedItem == 2) {
+            if (selectedItem == 3) {
                 System.out.println("Options menu, not integrated yet.");
                 menuInput.remove(GameVariables.keyboardSelect);
             }
             //TODO
-            if (selectedItem == 3) {
+            if (selectedItem == 4) {
                 System.out.println("Network gameplay, not integrated yet.");
                 menuInput.remove(GameVariables.keyboardSelect);
             }
 
-            if (selectedItem == 4) {
+            if (selectedItem == 5) {
                 System.exit(0);
             }
         }

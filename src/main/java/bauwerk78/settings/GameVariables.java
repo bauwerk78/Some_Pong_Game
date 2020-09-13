@@ -1,5 +1,7 @@
 package bauwerk78.settings;
 
+import javafx.geometry.Pos;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -27,39 +29,33 @@ public class GameVariables {
 
     //Menu settings.
     //Main menu.
-    public static final int mainMenuSelections = 5;
-    public static final String[] mainMenu = new String[mainMenuSelections];
-    public static final String mainMenuHeader = "MAIN MENU";
-    public static String mainMenu0 = "1 Player";
-    public static String mainMenu1 = "2 Player";
-    public static String mainMenu2 = "Options";
-    public static String mainMenu3 = "Play Via Network";
-    public static String mainMenu4 = "Exit Game";
-    //Options menu.
-    public static final int optionsMenuSelections = 4;
-    public static final String[] optionsMenu = new String[optionsMenuSelections];
-    public static final String optionsMenuHeader = "OPTIONS";
-    //optionsMenu[0] = "Resolution";
-    public static final String optionsMenu0 = "Resolution";
-    public static final String optionsMenu1 = "Player Name";
-    public static final String optionsMenu2 = "Controls";
-    public static final String optionsMenu3 = "Go Back";
-    //Resolution menu.
-    public static final int resolutionMenuSelections = 4;
-    public static final String resolutionMenuHeader = "RESOLUTION";
-    //TODO make all these into arrays instead.
-    public static final String resolutionMenu0 = "1024x768";
-    public static final String resolutionMenu1 = "800x600";
-    public static final String resolutionMenu2 = "600x400";
-    public static final String resolutionMenu3 = "Go Back";
+    public static final String[] mainMenu = {"MAIN MENU", "1 Player", "2 Player", "Options", "Play Via Network", "Exit Game"};
 
-    //TODO Import method of strings to Text objects.
-    public static Text[] getTextSelectionArray(String menuName, int arraySize) {
-        Text[] textArray = new Text[arraySize];
-        for (int i = 0; i < arraySize; i++) {
-            textArray[i] = new Text(menuName + i);
+    //Options menu.
+    public static final String[] optionsMenu = {"OPTIONS", "Resolution", "Player Name", "Controls", "Go Back"};
+
+    //Resolution menu.
+    public static final String[] resolutionMenu = {"RESOLUTION", "1024x768", "800x600", "600x400", "Go Back"};
+
+    public static Text[] getTextArray(String[] menuName) {
+        Text[] textArray = new Text[menuName.length];
+        for (int i = 0; i < menuName.length; i++) {
+            if(i == 0) {
+                textArray[i] = new Text(menuName[i]);
+                textArray[i].setId("menu-header");
+            } else {
+                textArray[i] = new Text(menuName[i]);
+            }
         }
         return textArray;
+    }
+
+    public static VBox getVbox(String[] menuName) {
+        VBox vBox = new VBox(getTextArray(menuName));
+        vBox.setAlignment(Pos.TOP_CENTER);
+        vBox.setId("verticalBoxArray");
+        vBox.getStylesheets().add("file:CSS/menu.css");
+        return vBox;
     }
 
     //Ball settings.

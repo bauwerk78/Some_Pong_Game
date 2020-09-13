@@ -1,6 +1,7 @@
 package bauwerk78.containers;
 
 import bauwerk78.settings.GameVariables;
+import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -15,12 +16,13 @@ public class OptionsMenu {
     }
 
     private void init() {
-        Text textMenuHeader = new Text(GameVariables.optionsMenuHeader);
-        textMenuHeader.setId("menu-header");
 
-        Text[] textSelection = new Text[GameVariables.optionsMenuSelections];
+        Text[] textSelection = GameVariables.getTextArray(GameVariables.optionsMenu);
 
-        verticalBox = new VBox(textMenuHeader);
+        verticalBox = new VBox(textSelection);
+        verticalBox.setAlignment(Pos.TOP_CENTER);
+        verticalBox.setId("verticalBoxArray");
+        verticalBox.getStylesheets().add("file:CSS/menu.css");
 
     }
 
