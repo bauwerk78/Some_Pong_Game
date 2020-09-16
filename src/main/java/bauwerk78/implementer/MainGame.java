@@ -1,6 +1,7 @@
 package bauwerk78.implementer;
 
 
+import bauwerk78.effects.PulsingGlowEffect;
 import bauwerk78.model.*;
 import bauwerk78.settings.GameOptions;
 import bauwerk78.settings.GameVariables;
@@ -41,6 +42,9 @@ public class MainGame extends Application {
 
     private boolean collisionCheck = true;
     private boolean roundResetTimer = true;
+
+    private PulsingGlowEffect pulseTemp = new PulsingGlowEffect();
+    private double doubleInput = 0;
 
 
     public MainGame() {
@@ -209,6 +213,8 @@ public class MainGame extends Application {
                 stage.setScene(gameMenu.getSceneMenu());
             }
             gameMenu.updateMenu();
+            System.out.println(doubleInput = pulseTemp.pulseTriangular(doubleInput));
+            //pulseTemp.pulse(doubleInput);
         }
     }
 

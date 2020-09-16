@@ -1,4 +1,4 @@
-package bauwerk78.implementer;
+package bauwerk78.model;
 
 import bauwerk78.settings.GameOptions;
 import javafx.geometry.Insets;
