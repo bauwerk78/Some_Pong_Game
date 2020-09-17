@@ -50,8 +50,8 @@ public class GameVariables {
         return textArray;
     }
 
-    public static VBox getVbox(String[] menuName) {
-        VBox vBox = new VBox(getTextArray(menuName));
+    public static VBox getMenuVbox(Text[] textArray) {
+        VBox vBox = new VBox(textArray);
         vBox.setAlignment(Pos.TOP_CENTER);
         vBox.setId("verticalBoxArray");
         vBox.getStylesheets().add("file:CSS/menu.css");

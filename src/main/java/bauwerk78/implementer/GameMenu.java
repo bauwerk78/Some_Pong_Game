@@ -6,7 +6,6 @@ import bauwerk78.settings.GameOptions;
 import bauwerk78.settings.GameVariables;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.effect.Glow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -16,25 +15,19 @@ import java.util.List;
 
 public class GameMenu {
 
-    private Text[] textArray;
     private final HBox horizontalBox = new HBox();
-    private VBox verticalBox;
-
-    private Scene sceneMenu;
-
     private final UserInput userInput = new UserInput();
-
     private final GlowEffect glowEffectSelection = new GlowEffect(1);
     private final GlowEffect glowEffectHeader = new GlowEffect();
-    private double glowLevel;
-    private boolean glowLevelGoingUp = true;
 
+    private VBox verticalBox;
+    private Text[] textArray;
+    private Scene sceneMenu;
     private int selectedItem = 1;
     private int numberOfPlayers;
 
     private boolean startGame;
     private boolean mainMenu = true;
-
 
     public GameMenu() {
         init();
@@ -44,10 +37,7 @@ public class GameMenu {
         textArray = GameVariables.getTextArray(GameVariables.mainMenu);
         textArray[0].setEffect(glowEffectHeader.getGlowEffect());
 
-        verticalBox = new VBox(textArray);
-        verticalBox.setAlignment(Pos.TOP_CENTER);
-        verticalBox.setId("verticalBoxArray");
-        verticalBox.getStylesheets().add("file:CSS/menu.css");
+        verticalBox = GameVariables.getMenuVbox(textArray);
 
         horizontalBox.setPrefSize(GameOptions.windowWidth, GameOptions.windowHeight - 125);
         horizontalBox.setAlignment(Pos.CENTER);
