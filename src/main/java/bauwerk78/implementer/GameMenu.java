@@ -1,5 +1,6 @@
 package bauwerk78.implementer;
 
+import bauwerk78.effects.GlowEffect;
 import bauwerk78.model.UserInput;
 import bauwerk78.settings.GameOptions;
 import bauwerk78.settings.GameVariables;
@@ -17,13 +18,14 @@ public class GameMenu {
 
     private Text[] textArray;
     private final HBox horizontalBox = new HBox();
+    private VBox verticalBox;
 
     private Scene sceneMenu;
 
     private final UserInput userInput = new UserInput();
 
-    private final Glow effectGlowSelection = new Glow();
-    private final Glow effectGlowHeader = new Glow();
+    private final GlowEffect glowEffectSelection = new GlowEffect(1);
+    private final GlowEffect glowEffectHeader = new GlowEffect();
     private double glowLevel;
     private boolean glowLevelGoingUp = true;
 
@@ -40,9 +42,9 @@ public class GameMenu {
 
     private void init() {
         textArray = GameVariables.getTextArray(GameVariables.mainMenu);
+        textArray[0].setEffect(glowEffectHeader.getGlowEffect());
 
-        VBox verticalBox = new VBox(textArray);
-
+        verticalBox = new VBox(textArray);
         verticalBox.setAlignment(Pos.TOP_CENTER);
         verticalBox.setId("verticalBoxArray");
         verticalBox.getStylesheets().add("file:CSS/menu.css");
@@ -52,34 +54,15 @@ public class GameMenu {
         horizontalBox.relocate(0, 125);
         horizontalBox.getChildren().add(verticalBox);
 
-        effectGlowSelection.setLevel(1);
-        textArray[0].setEffect(effectGlowHeader);
         sceneMenu = new Scene(horizontalBox, GameOptions.windowWidth, GameOptions.windowHeight);
         sceneMenu.setFill(Color.BLACK);
-    }
-
-    public void pulsingGlowMenu() {
-        if (glowLevelGoingUp) {
-            glowLevel += 0.01;
-            if (glowLevel >= 1) {
-                glowLevel = 1;
-                glowLevelGoingUp = false;
-            }
-        } else {
-            glowLevel -= 0.01;
-            if (glowLevel <= 0) {
-                glowLevel = 0;
-                glowLevelGoingUp = true;
-            }
-        }
     }
 
     public void updateMenu() {
         userInput.getPlayerInput(sceneMenu);
         List<String> menuInput = userInput.getInputList();
 
-        pulsingGlowMenu();
-        effectGlowHeader.setLevel(glowLevel);
+        glowEffectHeader.pulsingGlowEffect();
 
         if (menuInput.contains(GameVariables.keyboardUp)) {
             selectedItem--;
@@ -103,7 +86,7 @@ public class GameMenu {
                 textArray[i].setEffect(null);
             } else {
                 if (textArray[i].getEffect() == null) {
-                    textArray[i].setEffect(effectGlowSelection);
+                    textArray[i].setEffect(glowEffectSelection.getGlowEffect());
                 }
             }
         }

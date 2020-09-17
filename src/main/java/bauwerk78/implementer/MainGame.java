@@ -1,7 +1,7 @@
 package bauwerk78.implementer;
 
 
-import bauwerk78.effects.PulsingGlowEffect;
+import bauwerk78.effects.GlowEffect;
 import bauwerk78.model.*;
 import bauwerk78.settings.GameOptions;
 import bauwerk78.settings.GameVariables;
@@ -43,7 +43,7 @@ public class MainGame extends Application {
     private boolean collisionCheck = true;
     private boolean roundResetTimer = true;
 
-    private PulsingGlowEffect pulseTemp = new PulsingGlowEffect();
+    private GlowEffect pulseTemp = new GlowEffect();
     private double doubleInput = 0;
 
 
