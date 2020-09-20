@@ -65,7 +65,7 @@ public class GameMenu {
             }
         }
 
-        if (menuInput.contains(GameVariables.keyboardDown)) {
+        if (menuInput.contains(GameVariables.keyboardDown) || selectedItem == 0) {
             selectedItem++;
             menuInput.remove(GameVariables.keyboardDown);
             if (selectedItem > textArray.length - 1) {
@@ -88,7 +88,6 @@ public class GameMenu {
         if (menuInput.contains(GameVariables.keyboardSelect)) {
             if (mainMenu) {
                 mainMenu(selectedItem);
-
             }
             if (optionsMenu) {
                 optionsMenu(selectedItem);
@@ -208,7 +207,7 @@ public class GameMenu {
         textArray[0].setEffect(glowEffectHeader.getGlowEffect());
         verticalBox = GameVariables.getMenuVbox(textArray);
         horizontalBox.getChildren().addAll(verticalBox);
-        selectedItem = 1;
+        selectedItem = 0;
     }
 
     public Scene getSceneMenu() {
