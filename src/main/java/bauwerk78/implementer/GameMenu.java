@@ -18,7 +18,7 @@ public class GameMenu {
     private final HBox horizontalBox = new HBox();
     private final UserInput userInput = new UserInput();
     private final GlowEffect glowEffectSelection = new GlowEffect(1);
-    private final GlowEffect glowEffectHeader = new GlowEffect();
+    private final GlowEffect glowEffectHeader = new GlowEffect(0);
 
     private VBox verticalBox;
     private Text[] textArray;
@@ -27,13 +27,16 @@ public class GameMenu {
     private int numberOfPlayers;
 
     private boolean startGame;
-    private boolean mainMenu = true;
+    private boolean mainMenu;
+    private boolean optionsMenu;
 
     public GameMenu() {
         init();
     }
 
     private void init() {
+        mainMenu = true;
+
         textArray = GameVariables.getTextArray(GameVariables.mainMenu);
         textArray[0].setEffect(glowEffectHeader.getGlowEffect());
 
@@ -70,7 +73,7 @@ public class GameMenu {
             }
         }
 
-        //Remove glow effect and add to the correct selection.
+        //Remove static glow effect and add to the correct selection.
         for (int i = 1; i < textArray.length; i++) {
             if (i != selectedItem) {
                 textArray[i].setEffect(null);
@@ -81,36 +84,132 @@ public class GameMenu {
             }
         }
 
+        //Switch to selected option if selection button is pressed.
         if (menuInput.contains(GameVariables.keyboardSelect)) {
-            if (selectedItem == 1) {
-                numberOfPlayers = 1;
-                menuInput.remove(GameVariables.keyboardSelect);
-                startGame = true;
-            }
-            if (selectedItem == 2) {
-                numberOfPlayers = 2;
-                menuInput.remove(GameVariables.keyboardSelect);
-                startGame = true;
-            }
-            //TODO
-            if (selectedItem == 3) {
-                System.out.println("Options menu, not integrated yet.");
-                menuInput.remove(GameVariables.keyboardSelect);
-            }
-            //TODO
-            if (selectedItem == 4) {
-                System.out.println("Network gameplay, not integrated yet.");
-                menuInput.remove(GameVariables.keyboardSelect);
-            }
+            if (mainMenu) {
+                mainMenu(selectedItem);
 
-            if (selectedItem == 5) {
-                System.exit(0);
             }
+            if (optionsMenu) {
+                optionsMenu(selectedItem);
+            }
+            menuInput.remove(GameVariables.keyboardSelect);
         }
-
 
     }
 
+    private void mainMenu(int selectedItem) {
+        switch (selectedItem) {
+            case 1:
+                numberOfPlayers = 1;
+                startGame = true;
+                break;
+            case 2:
+                numberOfPlayers = 2;
+                startGame = true;
+                break;
+            case 3:
+                initMenu(GameVariables.optionsMenu);
+                mainMenu = false;
+                optionsMenu = true;
+                break;
+            case 4:
+                //TODO
+                System.out.println("Network gameplay, not integrated yet.");
+                break;
+            case 5:
+                System.exit(0);
+                break;
+        }
+    }
+    //TODO
+    private void optionsMenu(int selectedItem) {
+        switch (selectedItem) {
+            case 1:
+                System.out.println("Resolution menu not implemented yet.");
+                break;
+            case 2:
+                System.out.println("Player name menu not implemented yet.");
+                break;
+            case 3:
+                System.out.println("Controls menu not implemented yet.");
+                break;
+            case 4:
+                initMenu(GameVariables.mainMenu);
+                mainMenu = true;
+                optionsMenu = false;
+                break;
+        }
+    }
+    //TODO
+    private void resolutionMenu(int selectedItem) {
+        switch (selectedItem) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+
+        }
+    }
+
+    //TODO
+    private void playerNameMenu(int selectedItem) {
+        switch (selectedItem) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+
+        }
+    }
+
+    //TODO
+    private void controlsMenu(int selectedItem) {
+        switch (selectedItem) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+
+        }
+    }
+
+    //TODO
+    private void networkMenu(int selectedItem) {
+        switch (selectedItem) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+
+        }
+    }
+
+    private void initMenu(String[] stringArray) {
+        horizontalBox.getChildren().removeAll(verticalBox);
+        verticalBox.getChildren().removeAll(textArray);
+        textArray = GameVariables.getTextArray(stringArray);
+        textArray[0].setEffect(glowEffectHeader.getGlowEffect());
+        verticalBox = GameVariables.getMenuVbox(textArray);
+        horizontalBox.getChildren().addAll(verticalBox);
+        selectedItem = 1;
+    }
 
     public Scene getSceneMenu() {
         return sceneMenu;

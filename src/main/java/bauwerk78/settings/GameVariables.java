@@ -10,7 +10,7 @@ public class GameVariables {
     /*Certain game variables collected in one file for easy editing and adjusting*/
 
     //Window related settings.
-    public static String windowGameTitle = "Some pong game";
+    public static final String windowGameTitle = "Some pong game";
 
     //Game score settings.
     public static final int scoreToEndGame = 3; //Winning score, winner needs to win by two points though so this number can climb higher.

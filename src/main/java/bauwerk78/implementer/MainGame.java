@@ -43,6 +43,7 @@ public class MainGame extends Application {
     private boolean collisionCheck = true;
     private boolean roundResetTimer = true;
 
+    //Testing variables.
     private GlowEffect pulseTemp = new GlowEffect();
     private double doubleInput = 0;
 
@@ -52,6 +53,7 @@ public class MainGame extends Application {
     }
 
     private void initGraphics() {
+        //TODO can canvas fit to scene?
         Canvas canvas = new Canvas(GameOptions.windowWidth, GameOptions.windowHeight);
         gc = canvas.getGraphicsContext2D();
 
@@ -213,8 +215,7 @@ public class MainGame extends Application {
                 stage.setScene(gameMenu.getSceneMenu());
             }
             gameMenu.updateMenu();
-            System.out.println(doubleInput = pulseTemp.pulseTriangular(doubleInput));
-            //pulseTemp.pulse(doubleInput);
+            //System.out.println(doubleInput = pulseTemp.pulseTriangular(doubleInput));
         }
     }
 

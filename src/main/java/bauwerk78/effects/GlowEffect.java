@@ -4,7 +4,6 @@ import javafx.scene.effect.Glow;
 
 public class GlowEffect {
 
-    //private final Glow effectGlowPulse = new Glow();
     private final Glow glowEffect = new Glow();
 
     private double glowLevel = 0;
@@ -52,9 +51,8 @@ public class GlowEffect {
         return glowEffect;
     }
 
-    public double setGlowLevel(double glowLevel) {
+    public void setGlowLevel(double glowLevel) {
         glowEffect.setLevel(glowLevel);
-        return glowLevel;
     }
 
     public double getGlowLevel() {
